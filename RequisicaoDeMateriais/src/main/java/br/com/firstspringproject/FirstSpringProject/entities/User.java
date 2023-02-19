@@ -26,6 +26,10 @@ public class User implements Serializable{
 	private String userName;
 	private String estado;
 	
+	public User() {
+		
+	}
+	
 	public User(String codigoUser, String codigoG, String userName, String estado) {
 		super();
 		this.codigoUser = codigoUser;
