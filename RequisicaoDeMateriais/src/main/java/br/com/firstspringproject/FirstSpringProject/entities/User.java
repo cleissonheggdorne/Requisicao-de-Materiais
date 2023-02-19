@@ -3,6 +3,13 @@ package br.com.firstspringproject.FirstSpringProject.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "gg_usuario")
 public class User implements Serializable{
 
 	/**
@@ -10,8 +17,12 @@ public class User implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@Column(name="codigo_user")
 	private String codigoUser;
+	@Column(name="codigo_g")
 	private String codigoG;
+	@Column(name="")
 	private String userName;
 	private String estado;
 	
