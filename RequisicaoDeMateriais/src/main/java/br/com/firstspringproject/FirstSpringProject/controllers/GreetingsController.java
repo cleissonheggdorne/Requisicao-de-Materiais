@@ -32,7 +32,7 @@ public class GreetingsController {
     @RequestMapping(value= "/users")  
   	@GetMapping    //Requisição do tipo GET
   	public ResponseEntity<User> findAll(){
-  		User u = new User("001", "0000001","cleisson.heggdorne", "A");
+  		User u = new User("001","001", "0000001","cleisson.heggdorne", "A", "","","");
   		return ResponseEntity.ok().body(u);
   	}
 }
