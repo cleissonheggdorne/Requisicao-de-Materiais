@@ -22,20 +22,20 @@ public class User implements Serializable{
 	private String codigoUser;
 	@Column(name="codigo_g")
 	private String codigoG;
-	@Column(name="")
+	@Column(name="user_name")
 	private String userName;
-	private String estado;
+	private String status_user;
 	
 	public User() {
 		
 	}
 	
-	public User(String codigoUser, String codigoG, String userName, String estado) {
+	public User(String codigoUser, String codigoG, String userName, String status_user) {
 		super();
 		this.codigoUser = codigoUser;
 		this.codigoG = codigoG;
 		this.userName = userName;
-		this.estado = estado;
+		this.status_user = status_user;
 	}
 	public String getCodigoUser() {
 		return codigoUser;
@@ -56,10 +56,10 @@ public class User implements Serializable{
 		this.userName = userName;
 	}
 	public String getEstado() {
-		return estado;
+		return status_user;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setEstado(String status_user) {
+		this.status_user = status_user;
 	}
 	@Override
 	public int hashCode() {
