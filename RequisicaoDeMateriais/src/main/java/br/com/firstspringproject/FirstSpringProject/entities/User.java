@@ -12,35 +12,50 @@ import jakarta.persistence.Table;
 @Table(name = "gg_usuario")
 public class User implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@Column(name="codigo_emp")
+	private String codigoEmp;
 	@Column(name="codigo_user")
 	private String codigoUser;
 	@Column(name="codigo_g")
 	private String codigoG;
 	@Column(name="user_name")
 	private String userName;
-	private String status_user;
-	
+	@Column(name="status_user")
+	private String statusUser;
+	@Column(name="codigo_grp_user")
+	private String codigoGrpUser;
+	@Column(name ="senha")
+	private String senha;
+	@Column(name ="codigo_fil")
+	private String codigoFil;
 	public User() {
 		
 	}
 	
-	public User(String codigoUser, String codigoG, String userName, String status_user) {
+	public User(String codigoEmp, String codigoUser, String codigoG, String userName, String statusUser, String codigoGrpUser, String senha, String codigoFil) {
 		super();
+		this.codigoEmp = codigoEmp;
 		this.codigoUser = codigoUser;
 		this.codigoG = codigoG;
 		this.userName = userName;
-		this.status_user = status_user;
+		this.statusUser = statusUser;
+		this.codigoGrpUser = codigoGrpUser;
+		this.senha = senha;
+		this.codigoFil = codigoFil;
+	}
+	public String getCodigoEmp() {
+		return codigoEmp;
+	}
+	public void setCodigoEmp(String codigoEmp) {
+		this.codigoEmp = codigoEmp;
 	}
 	public String getCodigoUser() {
 		return codigoUser;
 	}
-	public void setCodigoUser(String codigoUser) {
+		public void setCodigoUser(String codigoUser) {
 		this.codigoUser = codigoUser;
 	}
 	public String getCodigoG() {
@@ -55,11 +70,27 @@ public class User implements Serializable{
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getEstado() {
-		return status_user;
+
+	public void setEstado(String statusUser) {
+		this.statusUser = statusUser;
 	}
-	public void setEstado(String status_user) {
-		this.status_user = status_user;
+	public String getCodigoGrpUser() {
+		return codigoGrpUser;
+	}
+	public void setCodigoGrpUser(String codigoGrpUser) {
+		this.codigoGrpUser = codigoGrpUser;
+	}
+	public String getSenha() {
+		return senha;
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	public String getCodigoFil() {
+		return codigoFil;
+	}
+	public void setCodigoFil(String codigoFil) {
+		this.codigoFil = codigoFil;
 	}
 	@Override
 	public int hashCode() {
