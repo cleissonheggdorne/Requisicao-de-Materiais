@@ -1,4 +1,4 @@
-package br.com.firstspringproject.FirstSpringProject.entities;
+package br.com.requisicaodemateriais.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@Column(name="codigo_emp")
 	private String codigoEmp;
@@ -32,9 +32,9 @@ public class User implements Serializable{
 	@Column(name ="codigo_fil")
 	private String codigoFil;
 	public User() {
-		
+
 	}
-	
+
 	public User(String codigoEmp, String codigoUser, String codigoG, String userName, String statusUser, String codigoGrpUser, String senha, String codigoFil) {
 		super();
 		this.codigoEmp = codigoEmp;
@@ -100,16 +100,14 @@ public class User implements Serializable{
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		User other = (User) obj;
 		return Objects.equals(codigoG, other.codigoG) && Objects.equals(codigoUser, other.codigoUser)
 				&& Objects.equals(userName, other.userName);
 	}
-	
-	
-	
+
+
+
 
 }

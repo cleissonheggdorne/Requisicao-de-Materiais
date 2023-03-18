@@ -1,23 +1,22 @@
-package br.com.firstspringproject.FirstSpringProject.entities;
+package br.com.requisicaodemateriais.entities;
 
 
 	import java.io.Serializable;
-	import java.util.Objects;
 
-	import jakarta.persistence.Column;
-	import jakarta.persistence.Entity;
-	import jakarta.persistence.Id;
-	import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 	@Entity
 	@Table(name = "gg_geral")
 	public class General implements Serializable{
 
 		/**
-		 * 
+		 *
 		 */
 		private static final long serialVersionUID = 1L;
-		
+
 		@Id
 		@Column(name="codigo_g")
 		private String codigoG;
@@ -29,6 +28,6 @@ package br.com.firstspringproject.FirstSpringProject.entities;
 		private String cpfG;
 		@Column(name="ativo_inativo")
 		private String ativoInativo;
-		
-		
+
+
 }

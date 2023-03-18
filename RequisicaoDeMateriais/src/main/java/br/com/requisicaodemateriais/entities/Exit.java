@@ -1,4 +1,4 @@
-package br.com.firstspringproject.FirstSpringProject.entities;
+package br.com.requisicaodemateriais.entities;
 
 import java.io.Serializable;
 
@@ -11,8 +11,8 @@ import jakarta.persistence.Table;
 @Table(name = "al_saida")
 public class Exit implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
 	@Id
 	@Column(name="num_ped_saida")
 	private String numPedEntra;
@@ -24,7 +24,7 @@ public class Exit implements Serializable{
 	private String codigoAlmox;
 	@Column(name="codigo_local")
 	private String codigoLocal;
-	
-	
+
+
 }
 
