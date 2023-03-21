@@ -9,8 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "al_saida")
-public class Exit implements Serializable{
+@Table(name = "gg_produtos")
+public class Product implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 
@@ -19,14 +19,10 @@ public class Exit implements Serializable{
 	private String codigoEmp;
 	@Column(name="codigo_fil")//chave estrangeira
 	private String codigoFil;
-	@Column(name="num_ped_saida")//chave estrangeira
-	private String numPedEntra;
-	@Column(name="codigo_prod")//chave estrangeira
+	@Column(name="codigo_prod")//chave primaria
 	private String codigoProd;
-	@Column(name="qtd_solicitada")
-	private double qtdSolicitada;
-	@Column(name="ano")
-	private String ano;
+	@Column(name="nome_prod")
+	private String nomeProd;
 	
 	public String getCodigoEmp() {
 		return codigoEmp;
@@ -40,34 +36,22 @@ public class Exit implements Serializable{
 	public void setCodigoFil(String codigoFil) {
 		this.codigoFil = codigoFil;
 	}
-	public String getNumPedEntra() {
-		return numPedEntra;
-	}
-	public void setNumPedEntra(String numPedEntra) {
-		this.numPedEntra = numPedEntra;
-	}
 	public String getCodigoProd() {
 		return codigoProd;
 	}
 	public void setCodigoProd(String codigoProd) {
 		this.codigoProd = codigoProd;
 	}
-	public double getQtdSolicitada() {
-		return qtdSolicitada;
+	public String getNomeProd() {
+		return nomeProd;
 	}
-	public void setQtdSolicitada(double qtdSolicitada) {
-		this.qtdSolicitada = qtdSolicitada;
-	}
-	public String getAno() {
-		return ano;
-	}
-	public void setAno(String ano) {
-		this.ano = ano;
+	public void setNomeProd(String nomeProd) {
+		this.nomeProd = nomeProd;
 	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(ano, codigoEmp, codigoFil, codigoProd, numPedEntra);
+		return Objects.hash(codigoEmp, codigoFil, codigoProd);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -77,14 +61,9 @@ public class Exit implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Exit other = (Exit) obj;
-		return Objects.equals(ano, other.ano) && Objects.equals(codigoEmp, other.codigoEmp)
-				&& Objects.equals(codigoFil, other.codigoFil) && Objects.equals(codigoProd, other.codigoProd)
-				&& Objects.equals(numPedEntra, other.numPedEntra);
+		Product other = (Product) obj;
+		return Objects.equals(codigoEmp, other.codigoEmp) && Objects.equals(codigoFil, other.codigoFil)
+				&& Objects.equals(codigoProd, other.codigoProd);
 	}
 	
-	
-
-	
 }
-

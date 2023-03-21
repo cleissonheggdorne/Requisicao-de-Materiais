@@ -16,13 +16,13 @@ public class Locale implements Serializable{
 		private static final long serialVersionUID = 1L;
 		
 		@Id
-		@Column(name="codigo_emp")
+		@Column(name="codigo_emp")//chave estrangeira
 		private String codigoEmp;
-		@Column(name="codigo_fil")
+		@Column(name="codigo_fil")//chave estrangeira
 		private String codigoFil;
-		@Column(name="codigo_local")
+		@Column(name="codigo_local")//chave estrangeira
 		private String codigoLocal;
-		@Column(name="codigo_g")
+		@Column(name="codigo_g")//chave estrangeira
 		private String codigoG;
 		//esse campo de data precissa obrigatoriamente ser null
 		@Column(name="data_final")
@@ -67,6 +67,20 @@ public class Locale implements Serializable{
 		public void setRequisicaoSN(String requisicaoSN) {
 			this.requisicaoSN = requisicaoSN;
 		}
-		
-	
+		@Override
+		public int hashCode() {
+			return Objects.hash(codigoEmp, codigoFil, codigoG, codigoLocal);
+		}
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Locale other = (Locale) obj;
+			return Objects.equals(codigoEmp, other.codigoEmp) && Objects.equals(codigoFil, other.codigoFil)
+					&& Objects.equals(codigoG, other.codigoG) && Objects.equals(codigoLocal, other.codigoLocal);
+		}
 }

@@ -15,19 +15,19 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="codigo_emp")
+	@Column(name="codigo_emp")//chave estrangeira
 	private String codigoEmp;
-	@Column(name ="codigo_fil")
+	@Column(name ="codigo_fil")//chave estrangeira
 	private String codigoFil;
-	@Column(name="codigo_user")
+	@Column(name="codigo_user")//chave primaria
 	private String codigoUser;
-	@Column(name="codigo_g")
+	@Column(name="codigo_g")//chave estrangeira
 	private String codigoG;
 	@Column(name="user_name")
 	private String userName;
 	@Column(name="status_user")
 	private String statusUser;
-	@Column(name="codigo_grp_user")
+	@Column(name="codigo_grp_user")//chave estrangeira
 	private String codigoGrpUser;
 	@Column(name ="senha")
 	private String senha;

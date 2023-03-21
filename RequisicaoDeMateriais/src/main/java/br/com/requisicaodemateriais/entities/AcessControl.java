@@ -15,15 +15,15 @@ public class AcessControl implements Serializable{
 		private static final long serialVersionUID = 1L;
 		
 		@Id
-		@Column(name="codigo_emp")
+		@Column(name="codigo_emp")//chave estrangeira
 		private String codigoEmp;
-		@Column(name="codigo_fil")
+		@Column(name="codigo_fil")//chave estrangeira
 		private String codigoFil;
-		@Column(name="codigo_sis")
+		@Column(name="codigo_sis")//chave estrangeira
 		private String codigoSis;
-		@Column(name="codigo_user")
+		@Column(name="codigo_user")//chave estrangeira
 		private String codigoUser;
-		@Column(name="codigo_almox")
+		@Column(name="codigo_almox")//chave estrangeira
 		private String codigoAlmox;
 		@Column(name="nome_menu")
 		private String nomeMenu;
@@ -97,5 +97,22 @@ public class AcessControl implements Serializable{
 		public void setConsultar(String consultar) {
 			this.consultar = consultar;
 		}
-			
+		
+		@Override
+		public int hashCode() {
+			return Objects.hash(codigoAlmox, codigoEmp, codigoFil, codigoSis, codigoUser);
+		}
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			AcessControl other = (AcessControl) obj;
+			return Objects.equals(codigoAlmox, other.codigoAlmox) && Objects.equals(codigoEmp, other.codigoEmp)
+					&& Objects.equals(codigoFil, other.codigoFil) && Objects.equals(codigoSis, other.codigoSis)
+					&& Objects.equals(codigoUser, other.codigoUser);
+		}			
 }

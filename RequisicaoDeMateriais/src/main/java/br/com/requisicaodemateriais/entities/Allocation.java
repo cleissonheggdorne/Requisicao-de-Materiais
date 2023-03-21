@@ -9,8 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "al_almox")
-public class Warehouse implements Serializable{
+@Table(name = "al_ficha")
+public class Allocation implements Serializable{
 
 		private static final long serialVersionUID = 1L;
 		
@@ -19,10 +19,12 @@ public class Warehouse implements Serializable{
 		private String codigoEmp;
 		@Column(name="codigo_fil")//chave estrangeira
 		private String codigoFil;
-		@Column(name="codigo_almox")//chave primaria
-		private String codigoAlmox;
-		@Column(name="nome_almox")
-		private String nomeAlmox;
+		@Column(name="codigo_ficha")//chave primaria
+		private String codigoFicha;
+		@Column(name="nome_ficha")
+		private String nomeFicha;
+		@Column(name="filtra_web")
+		private String filtraWeb;
 		
 		public String getCodigoEmp() {
 			return codigoEmp;
@@ -36,22 +38,28 @@ public class Warehouse implements Serializable{
 		public void setCodigoFil(String codigoFil) {
 			this.codigoFil = codigoFil;
 		}
-		public String getCodigoAlmox() {
-			return codigoAlmox;
+		public String getCodigoFicha() {
+			return codigoFicha;
 		}
-		public void setCodigoAlmox(String codigoAlmox) {
-			this.codigoAlmox = codigoAlmox;
+		public void setCodigoFicha(String codigoFicha) {
+			this.codigoFicha = codigoFicha;
 		}
-		public String getNomeAlmox() {
-			return nomeAlmox;
+		public String getNomeFicha() {
+			return nomeFicha;
 		}
-		public void setNomeAlmox(String nomeAlmox) {
-			this.nomeAlmox = nomeAlmox;
+		public void setNomeFicha(String nomeFicha) {
+			this.nomeFicha = nomeFicha;
+		}
+		public String getFiltraWeb() {
+			return filtraWeb;
+		}
+		public void setFiltraWeb(String filtraWeb) {
+			this.filtraWeb = filtraWeb;
 		}
 		
 		@Override
 		public int hashCode() {
-			return Objects.hash(codigoAlmox, codigoEmp, codigoFil);
+			return Objects.hash(codigoEmp, codigoFicha, codigoFil);
 		}
 		@Override
 		public boolean equals(Object obj) {
@@ -61,9 +69,8 @@ public class Warehouse implements Serializable{
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			Warehouse other = (Warehouse) obj;
-			return Objects.equals(codigoAlmox, other.codigoAlmox) && Objects.equals(codigoEmp, other.codigoEmp)
+			Allocation other = (Allocation) obj;
+			return Objects.equals(codigoEmp, other.codigoEmp) && Objects.equals(codigoFicha, other.codigoFicha)
 					&& Objects.equals(codigoFil, other.codigoFil);
 		}
-		
 }
