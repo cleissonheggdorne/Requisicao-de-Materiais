@@ -17,6 +17,8 @@ public class User implements Serializable{
 	@Id
 	@Column(name="codigo_emp")
 	private String codigoEmp;
+	@Column(name ="codigo_fil")
+	private String codigoFil;
 	@Column(name="codigo_user")
 	private String codigoUser;
 	@Column(name="codigo_g")
@@ -29,22 +31,23 @@ public class User implements Serializable{
 	private String codigoGrpUser;
 	@Column(name ="senha")
 	private String senha;
-	@Column(name ="codigo_fil")
-	private String codigoFil;
+	
+	
 	public User() {
 
 	}
 
-	public User(String codigoEmp, String codigoUser, String codigoG, String userName, String statusUser, String codigoGrpUser, String senha, String codigoFil) {
+	public User(String codigoEmp, String codigoFil, String codigoUser, String codigoG, String userName, String statusUser, String codigoGrpUser, String senha ) {
 		super();
 		this.codigoEmp = codigoEmp;
+		this.codigoFil = codigoFil;
 		this.codigoUser = codigoUser;
 		this.codigoG = codigoG;
 		this.userName = userName;
 		this.statusUser = statusUser;
 		this.codigoGrpUser = codigoGrpUser;
 		this.senha = senha;
-		this.codigoFil = codigoFil;
+		
 	}
 	public String getCodigoEmp() {
 		return codigoEmp;
@@ -92,22 +95,23 @@ public class User implements Serializable{
 	public void setCodigoFil(String codigoFil) {
 		this.codigoFil = codigoFil;
 	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(codigoG, codigoUser, userName);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if ((obj == null) || (getClass() != obj.getClass()))
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
 		return Objects.equals(codigoG, other.codigoG) && Objects.equals(codigoUser, other.codigoUser)
 				&& Objects.equals(userName, other.userName);
 	}
-
-
-
 
 }
