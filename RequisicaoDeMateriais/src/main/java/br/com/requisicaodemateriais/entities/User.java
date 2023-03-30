@@ -3,9 +3,16 @@ package br.com.requisicaodemateriais.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import br.com.requisicaodemateriais.entities.compositekeys.UserId;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,21 +20,38 @@ import jakarta.persistence.Table;
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@Column(name="codigo_emp")//chave estrangeira
-	private String codigoEmp;
-	@Column(name ="codigo_fil")//chave estrangeira
-	private String codigoFil;
-	@Column(name="codigo_user")//chave primaria
-	private String codigoUser;
-	@Column(name="codigo_g")//chave estrangeira
-	private String codigoG;
+	
+	@EmbeddedId
+	private UserId userId;
+	
+	
+	@MapsId("system")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="codigo_sis", referencedColumnName = "codigo_sis")
+	private System system;
+	
+	@ManyToOne
+	@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
+	private Company company;
+	
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false),
+		@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false)
+	})
+	private Branch branch;
+	
+	@OneToOne
+	@JoinColumns({
+		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false),
+		@JoinColumn(name="codigo_g", referencedColumnName = "codigo_g", insertable=false, updatable=false)
+	})
+	private General pessoa;
 	@Column(name="user_name")
 	private String userName;
 	@Column(name="status_user")
 	private String statusUser;
-	@Column(name="codigo_grp_user")//chave estrangeira
+	@Column(name="codigo_grp_usr")//chave estrangeira
 	private String codigoGrpUser;
 	@Column(name ="senha")
 	private String senha;
@@ -37,69 +61,125 @@ public class User implements Serializable{
 
 	}
 
-	public User(String codigoEmp, String codigoFil, String codigoUser, String codigoG, String userName, String statusUser, String codigoGrpUser, String senha ) {
+
+	public User(System system, UserId userId, Company company, Branch branch, General pessoa, String userName,
+			String statusUser, String codigoGrpUser, String senha) {
 		super();
-		this.codigoEmp = codigoEmp;
-		this.codigoFil = codigoFil;
-		this.codigoUser = codigoUser;
-		this.codigoG = codigoG;
+		this.system = system;
+		this.userId = userId;
+		this.company = company;
+		this.branch = branch;
+		this.pessoa = pessoa;
 		this.userName = userName;
 		this.statusUser = statusUser;
 		this.codigoGrpUser = codigoGrpUser;
 		this.senha = senha;
-		
 	}
-	public String getCodigoEmp() {
-		return codigoEmp;
+
+	public UserId getUserId() {
+		return userId;
 	}
-	public void setCodigoEmp(String codigoEmp) {
-		this.codigoEmp = codigoEmp;
+
+
+	public void setUserId(UserId userId) {
+		this.userId = userId;
 	}
-	public String getCodigoUser() {
-		return codigoUser;
+	
+	public System getSystem() {
+		return system;
 	}
-		public void setCodigoUser(String codigoUser) {
-		this.codigoUser = codigoUser;
+
+
+	public void setSystem(System system) {
+		this.system = system;
 	}
-	public String getCodigoG() {
-		return codigoG;
+
+
+	public UserId getCodigoUser() {
+		return userId;
 	}
-	public void setCodigoG(String codigoG) {
-		this.codigoG = codigoG;
+
+
+	public void setCodigoUser(UserId userId) {
+		this.userId = userId;
 	}
+
+
+	public Company getCompany() {
+		return company;
+	}
+
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+
+	public Branch getBranch() {
+		return branch;
+	}
+
+
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
+
+
+	public General getPessoa() {
+		return pessoa;
+	}
+
+
+	public void setPessoa(General pessoa) {
+		this.pessoa = pessoa;
+	}
+
+
 	public String getUserName() {
 		return userName;
 	}
+
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	public void setEstado(String statusUser) {
+
+	public String getStatusUser() {
+		return statusUser;
+	}
+
+
+	public void setStatusUser(String statusUser) {
 		this.statusUser = statusUser;
 	}
+
+
 	public String getCodigoGrpUser() {
 		return codigoGrpUser;
 	}
+
+
 	public void setCodigoGrpUser(String codigoGrpUser) {
 		this.codigoGrpUser = codigoGrpUser;
 	}
+
+
 	public String getSenha() {
 		return senha;
 	}
+
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public String getCodigoFil() {
-		return codigoFil;
-	}
-	public void setCodigoFil(String codigoFil) {
-		this.codigoFil = codigoFil;
-	}
+
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigoG, codigoUser, userName);
+		return Objects.hash(branch, codigoGrpUser, userId, pessoa);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -110,8 +190,10 @@ public class User implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(codigoG, other.codigoG) && Objects.equals(codigoUser, other.codigoUser)
-				&& Objects.equals(userName, other.userName);
+		return Objects.equals(branch, other.branch) && Objects.equals(codigoGrpUser, other.codigoGrpUser)
+				&& Objects.equals(userId, other.userId) && Objects.equals(pessoa, other.pessoa);
 	}
 
+
+	
 }
