@@ -1,4 +1,4 @@
-package br.com.requisicaodemateriais.entities;
+package br.com.requisicaodemateriais.entities.views;
 
 import java.io.Serializable;
 import java.util.Objects;

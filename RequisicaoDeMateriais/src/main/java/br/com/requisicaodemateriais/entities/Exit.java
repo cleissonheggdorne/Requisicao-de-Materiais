@@ -3,9 +3,13 @@ package br.com.requisicaodemateriais.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import br.com.requisicaodemateriais.entities.compositekeys.ExitNoteId;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,19 +18,27 @@ public class Exit implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 
-	@Id
-	@Column(name="codigo_emp")//chave estrangeira
-	private String codigoEmp;
-	@Column(name="codigo_fil")//chave estrangeira
-	private String codigoFil;
-	@Column(name="num_ped_saida")//chave estrangeira
-	private String numPedEntra;
+	@EmbeddedId
+	private ExitNoteId exitId;
+	
+	@ManyToOne
+	@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
+	private Company company;
+	
+	
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
+		@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false)
+	})
+	private Branch branch;
+	
+	
 	@Column(name="codigo_prod")//chave estrangeira
 	private String codigoProd;
 	@Column(name="qtd_solicitada")
 	private double qtdSolicitada;
-	@Column(name="ano")
-	private String ano;
+
 	
 	public String getCodigoEmp() {
 		return codigoEmp;

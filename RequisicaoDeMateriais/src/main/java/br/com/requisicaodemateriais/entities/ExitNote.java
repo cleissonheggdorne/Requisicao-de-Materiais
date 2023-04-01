@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import br.com.requisicaodemateriais.entities.compositekeys.ExitNoteId;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,102 +18,168 @@ import jakarta.persistence.Table;
 public class ExitNote implements Serializable{
 
 		private static final long serialVersionUID = 1L;
+		@EmbeddedId
+		private ExitNoteId exitNoteId;
 		
-		@Id
-		@Column(name="codigo_emp")//chave estrangeira
-		private String codigoEmp;
-		@Column(name="codigo_fil")//chave estrangeira
-		private String codigoFil;
-		@Column(name="codigo_ficha")//chave estrangeira
-		private String codigoFicha;
-		@Column(name="num_ped_saida")//chave primaria
-		private String numPedEntra;
-		@Column(name="ano")//nao sei mas acho q é chave
-		private String ano;
-		@Column(name="codigo_tp_baixa")//chave estrangeira
-		private String tipoBaixa;
-		@Column(name="codigo_user")//chave estrangeira
-		private String codigoUser;
-		@Column(name="codigo_local")//chave estrangeira
-		private String codigoLocal;
-		@Column(name="codigo_almox")//chave estrangeira
-		private String codigoAlmox;
+		@ManyToOne
+		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
+		private Company company;
+		
+		@ManyToOne
+		@JoinColumns({
+			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
+			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false)
+		})
+		private Branch branch;
+		
+		@ManyToOne
+		@JoinColumns({
+			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
+			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false),
+			@JoinColumn(name="codigo_ficha", referencedColumnName = "codigo_ficha",insertable=false, updatable=false)
+		})
+		private Allocation allocation;
+		
+		@ManyToOne
+		@JoinColumns({
+			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
+			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false),
+			@JoinColumn(name="codigo_tp_baixa", referencedColumnName = "codigo_tp_baixa",insertable=false, updatable=false)
+		})
+		private ExitType exitType;
+		
+		@ManyToOne
+		@JoinColumns({
+			@JoinColumn(name="codigo_sis", referencedColumnName = "codigo_sis",insertable=false, updatable=false),
+			@JoinColumn(name="codigo_user", referencedColumnName = "codigo_user", insertable=false, updatable=false)
+		})
+		private User user;
+		
+		@ManyToOne
+		@JoinColumns({
+			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
+			@JoinColumn(name="codigo_local", referencedColumnName = "codigo_local", insertable=false, updatable=false)
+		})		
+		private LocaleName localeName;
+		
+		@ManyToOne
+		@JoinColumns({
+			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
+			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false),
+			@JoinColumn(name="codigo_almox", referencedColumnName = "codigo_almox", insertable=false, updatable=false)
+		})
+		private Warehouse warehouse;
+		
+		
 		@Column(name="data_saida")
 		private Date dataSaida;
 		@Column(name="destinacao")
 		private String justificativa;
 		
-		public String getCodigoEmp() {
-			return codigoEmp;
+		public ExitNote() {
+			
 		}
-		public void setCodigoEmp(String codigoEmp) {
-			this.codigoEmp = codigoEmp;
+
+		public ExitNote(ExitNoteId exitNoteId, Company company, Branch branch, Allocation allocation, ExitType exitType,
+				User user, LocaleName localeName, Warehouse warehouse, Date dataSaida, String justificativa) {
+			super();
+			this.exitNoteId = exitNoteId;
+			this.company = company;
+			this.branch = branch;
+			this.allocation = allocation;
+			this.exitType = exitType;
+			this.user = user;
+			this.localeName = localeName;
+			this.warehouse = warehouse;
+			this.dataSaida = dataSaida;
+			this.justificativa = justificativa;
 		}
-		public String getCodigoFil() {
-			return codigoFil;
+
+		public ExitNoteId getExitNoteId() {
+			return exitNoteId;
 		}
-		public void setCodigoFil(String codigoFil) {
-			this.codigoFil = codigoFil;
+
+		public void setExitNoteId(ExitNoteId exitNoteId) {
+			this.exitNoteId = exitNoteId;
 		}
-		public String getCodigoFicha() {
-			return codigoFicha;
+
+		public Company getCompany() {
+			return company;
 		}
-		public void setCodigoFicha(String codigoFicha) {
-			this.codigoFicha = codigoFicha;
+
+		public void setCompany(Company company) {
+			this.company = company;
 		}
-		public String getNumPedEntra() {
-			return numPedEntra;
+
+		public Branch getBranch() {
+			return branch;
 		}
-		public void setNumPedEntra(String numPedEntra) {
-			this.numPedEntra = numPedEntra;
+
+		public void setBranch(Branch branch) {
+			this.branch = branch;
 		}
-		public String getAno() {
-			return ano;
+
+		public Allocation getAllocation() {
+			return allocation;
 		}
-		public void setAno(String ano) {
-			this.ano = ano;
+
+		public void setAllocation(Allocation allocation) {
+			this.allocation = allocation;
 		}
-		public String getTipoBaixa() {
-			return tipoBaixa;
+
+		public ExitType getExitType() {
+			return exitType;
 		}
-		public void setTipoBaixa(String tipoBaixa) {
-			this.tipoBaixa = tipoBaixa;
+
+		public void setExitType(ExitType exitType) {
+			this.exitType = exitType;
 		}
-		public String getCodigoUser() {
-			return codigoUser;
+
+		public User getUser() {
+			return user;
 		}
-		public void setCodigoUser(String codigoUser) {
-			this.codigoUser = codigoUser;
+
+		public void setUser(User user) {
+			this.user = user;
 		}
-		public String getCodigoLocal() {
-			return codigoLocal;
+
+		public LocaleName getLocaleName() {
+			return localeName;
 		}
-		public void setCodigoLocal(String codigoLocal) {
-			this.codigoLocal = codigoLocal;
+
+		public void setLocaleName(LocaleName localeName) {
+			this.localeName = localeName;
 		}
-		public String getCodigoAlmox() {
-			return codigoAlmox;
+
+		public Warehouse getWarehouse() {
+			return warehouse;
 		}
-		public void setCodigoAlmox(String codigoAlmox) {
-			this.codigoAlmox = codigoAlmox;
+
+		public void setWarehouse(Warehouse warehouse) {
+			this.warehouse = warehouse;
 		}
+
 		public Date getDataSaida() {
 			return dataSaida;
 		}
+
 		public void setDataSaida(Date dataSaida) {
 			this.dataSaida = dataSaida;
 		}
+
 		public String getJustificativa() {
 			return justificativa;
 		}
+
 		public void setJustificativa(String justificativa) {
 			this.justificativa = justificativa;
 		}
-		
+
 		@Override
 		public int hashCode() {
-			return Objects.hash(ano, codigoAlmox, codigoEmp, codigoFil, numPedEntra);
+			return Objects.hash(allocation, branch, company, exitNoteId, exitType, localeName, user, warehouse);
 		}
+
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
@@ -119,8 +189,10 @@ public class ExitNote implements Serializable{
 			if (getClass() != obj.getClass())
 				return false;
 			ExitNote other = (ExitNote) obj;
-			return Objects.equals(ano, other.ano) && Objects.equals(codigoAlmox, other.codigoAlmox)
-					&& Objects.equals(codigoEmp, other.codigoEmp) && Objects.equals(codigoFil, other.codigoFil)
-					&& Objects.equals(numPedEntra, other.numPedEntra);
+			return Objects.equals(allocation, other.allocation) && Objects.equals(branch, other.branch)
+					&& Objects.equals(company, other.company) && Objects.equals(exitNoteId, other.exitNoteId)
+					&& Objects.equals(exitType, other.exitType) && Objects.equals(localeName, other.localeName)
+					&& Objects.equals(user, other.user) && Objects.equals(warehouse, other.warehouse);
 		}
+		
 }
