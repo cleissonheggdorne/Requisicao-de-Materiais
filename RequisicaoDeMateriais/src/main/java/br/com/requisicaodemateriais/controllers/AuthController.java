@@ -1,6 +1,7 @@
 package br.com.requisicaodemateriais.controllers;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ public class AuthController {
 	
 	final UserService userService;
 	final LocaleService localeService;
-	User userLogged;
+	Optional<User> userLogged;
 	
 	public AuthController(UserService userService, LocaleService localeService) {
 		this.userService = userService;
@@ -58,12 +59,12 @@ public class AuthController {
 			return("login");
 		}
 		
-		User user = userService.login(userDto.getUserName(),userDto.getSenha());
+		Optional<User> user = userService.login(userDto.getUserName(),userDto.getSenha());
 		
 		if(user == null) {
 			model.addAttribute("msg", "Usuário Não Encontrado");
 		}else {
-			for(Locale loc : user.getPessoa().getLocales()) {
+			for(Locale loc : user.get().getPessoa().getLocales()) {
 				if(loc.getRequisicaoSN().contains("S")) {
 					userLogged = user;
 					break;

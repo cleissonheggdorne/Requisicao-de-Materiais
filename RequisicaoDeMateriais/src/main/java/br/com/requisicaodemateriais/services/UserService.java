@@ -1,5 +1,7 @@
 package br.com.requisicaodemateriais.services;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import br.com.requisicaodemateriais.entities.User;
@@ -14,13 +16,9 @@ public class UserService {
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
-	public User login(String userName, String password) throws ClassServiceException {
-		User userLogin = userRepository.searchLogin(userName, password);
-		return userLogin;
+	
+	public Optional<User> login(String userName, String password) throws ClassServiceException {
+		return userRepository.searchLogin(userName, password);
 	}
-//	public User verifyPermissionPedidoCompras(User userLogin) {
-//		User user = userRepository.verifyPermissionPedidoCompras(userLogin);
-//		return user;
-//	}
 	
 }
