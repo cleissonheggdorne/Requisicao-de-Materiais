@@ -14,14 +14,15 @@ public class WarehouseId implements Serializable {
 //	 */
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="codigo_emp")//chave estrangeira
+	@Column(name="codigo_emp")
 	private String codigoEmp;
-	@Column(name="codigo_fil")//chave estrangeira
+	@Column(name="codigo_fil")
 	private String codigoFil;
-	@Column(name="codigo_almox")//chave primaria
+	@Column(name="codigo_almox")
 	private String codigoAlmox;
+	
 	public WarehouseId() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	public WarehouseId(String codigoEmp, String codigoFil, String codigoAlmox) {
 		super();
