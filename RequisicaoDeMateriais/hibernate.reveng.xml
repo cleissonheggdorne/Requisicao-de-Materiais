@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-schema="public" match-name="al_almox"/>
+  <table-filter match-schema="public" match-name="al_ctrl_acesso"/>
+  <table-filter match-schema="public" match-name="gg_empresa"/>
+  <table-filter match-schema="public" match-name="gg_filial"/>
+  <table-filter match-schema="public" match-name="gg_geral"/>
+  <table-filter match-schema="public" match-name="gg_local"/>
+  <table-filter match-schema="public" match-name="pr_localident"/>
+</hibernate-reverse-engineering>

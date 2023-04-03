@@ -3,9 +3,10 @@ package br.com.requisicaodemateriais.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import br.com.requisicaodemateriais.entities.compositekeys.WarehouseId;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,45 +15,76 @@ public class Warehouse implements Serializable{
 
 		private static final long serialVersionUID = 1L;
 		
-		@Id
-		@Column(name="codigo_emp")//chave estrangeira
-		private String codigoEmp;
-		@Column(name="codigo_fil")//chave estrangeira
-		private String codigoFil;
-		@Column(name="codigo_almox")//chave primaria
-		private String codigoAlmox;
+		@EmbeddedId
+		WarehouseId warehouseId;
+		
+//		@ManyToOne(fetch = FetchType.LAZY)
+//		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
+		private Company company;
+	
+//		@ManyToOne(fetch = FetchType.LAZY)
+//		@JoinColumns({
+//			@JoinColumn(name="codigo_emp",referencedColumnName = "codigo_emp", insertable=false, updatable=false),
+//			@JoinColumn(name="codigo_fil",referencedColumnName = "codigo_fil", insertable=false, updatable=false)
+//		})
+		private Branch branch;
+		
 		@Column(name="nome_almox")
 		private String nomeAlmox;
 		
-		public String getCodigoEmp() {
-			return codigoEmp;
+		public Warehouse() {
+			
 		}
-		public void setCodigoEmp(String codigoEmp) {
-			this.codigoEmp = codigoEmp;
+
+		public Warehouse(WarehouseId warehouseId, Company company, Branch branch, String nomeAlmox) {
+			super();
+			this.warehouseId = warehouseId;
+			this.company = company;
+			this.branch = branch;
+			this.nomeAlmox = nomeAlmox;
 		}
-		public String getCodigoFil() {
-			return codigoFil;
+
+		public WarehouseId getWarehouseId() {
+			return warehouseId;
 		}
-		public void setCodigoFil(String codigoFil) {
-			this.codigoFil = codigoFil;
+
+		public void setWarehouseId(WarehouseId warehouseId) {
+			this.warehouseId = warehouseId;
 		}
-		public String getCodigoAlmox() {
-			return codigoAlmox;
+
+		public Company getCompany() {
+			return company;
 		}
-		public void setCodigoAlmox(String codigoAlmox) {
-			this.codigoAlmox = codigoAlmox;
+
+		public void setCompany(Company company) {
+			this.company = company;
 		}
+
+		public Branch getBranch() {
+			return branch;
+		}
+
+		public void setBranch(Branch branch) {
+			this.branch = branch;
+		}
+
 		public String getNomeAlmox() {
 			return nomeAlmox;
 		}
+
 		public void setNomeAlmox(String nomeAlmox) {
 			this.nomeAlmox = nomeAlmox;
 		}
-		
+
+		public static long getSerialversionuid() {
+			return serialVersionUID;
+		}
+
 		@Override
 		public int hashCode() {
-			return Objects.hash(codigoAlmox, codigoEmp, codigoFil);
+			return Objects.hash(branch, company, nomeAlmox, warehouseId);
 		}
+
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
@@ -62,8 +94,9 @@ public class Warehouse implements Serializable{
 			if (getClass() != obj.getClass())
 				return false;
 			Warehouse other = (Warehouse) obj;
-			return Objects.equals(codigoAlmox, other.codigoAlmox) && Objects.equals(codigoEmp, other.codigoEmp)
-					&& Objects.equals(codigoFil, other.codigoFil);
+			return Objects.equals(branch, other.branch) && Objects.equals(company, other.company)
+					&& Objects.equals(nomeAlmox, other.nomeAlmox) && Objects.equals(warehouseId, other.warehouseId);
 		}
+		
 		
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Pessoa - Cadastro</title>
+    </head>
+        <div th:object="${userLogged}"></div>
+
+    <body>
+        <h1>Seja Bem Vindo!</h1>
+        
+  		<h1>Olá <span th:text="*{session.userLogged.userName}"></span></h1>
+		<table>
+			<tr>
+				<td>Usuário</td>
+				<td>Nome Pessoa</td>
+			</tr>
+			<tr data-th-each="attr : ${session.userLogged}">
+				<td data-th-text="${attr.userName}"></td>
+				<td data-th-text="${attr.pessoa.nameG}"></td>
+			</tr>
+		</table>
+    </body>
+</html>

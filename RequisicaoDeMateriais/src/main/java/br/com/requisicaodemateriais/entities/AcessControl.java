@@ -3,9 +3,14 @@ package br.com.requisicaodemateriais.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import br.com.requisicaodemateriais.entities.compositekeys.AcessControlId;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,19 +19,40 @@ public class AcessControl implements Serializable{
 
 		private static final long serialVersionUID = 1L;
 		
-		@Id
-		@Column(name="codigo_emp")//chave estrangeira
-		private String codigoEmp;
-		@Column(name="codigo_fil")//chave estrangeira
-		private String codigoFil;
-		@Column(name="codigo_sis")//chave estrangeira
-		private String codigoSis;
-		@Column(name="codigo_user")//chave estrangeira
-		private String codigoUser;
-		@Column(name="codigo_almox")//chave estrangeira
-		private String codigoAlmox;
-		@Column(name="nome_menu")
-		private String nomeMenu;
+		@EmbeddedId
+		AcessControlId acessControlId;
+		
+		@ManyToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
+		private Company company;
+	
+		@ManyToOne()
+		@JoinColumns({
+			@JoinColumn(name="codigo_emp",referencedColumnName = "codigo_emp", insertable=false, updatable=false),
+			@JoinColumn(name="codigo_fil",referencedColumnName = "codigo_fil", insertable=false, updatable=false)
+		})
+		private Branch branch;
+		
+		@ManyToOne()
+		@JoinColumn(name="codigo_sis", referencedColumnName = "codigo_sis", insertable=false, updatable=false)
+		private System system;
+		
+		@ManyToOne()
+		@JoinColumns({
+			@JoinColumn(name="codigo_user",referencedColumnName = "codigo_user", insertable=false, updatable=false),
+			@JoinColumn(name="codigo_sis",referencedColumnName = "codigo_sis", insertable=false, updatable=false)
+		})
+		private User user;
+		
+		@ManyToOne()
+		@JoinColumns({
+			@JoinColumn(name="codigo_emp",referencedColumnName = "codigo_emp", insertable=false, updatable=false),
+			@JoinColumn(name="codigo_fil",referencedColumnName = "codigo_fil", insertable=false, updatable=false),
+			@JoinColumn(name="codigo_almox",referencedColumnName = "codigo_almox", insertable=false, updatable=false)
+		})
+		private Warehouse warehouse;
+		
+		
 		@Column(name="incluir")
 		private String incluir;
 		@Column(name="excluir")
@@ -37,42 +63,32 @@ public class AcessControl implements Serializable{
 		private String consultar;
 		
 		
-		public String getCodigoEmp() {
-			return codigoEmp;
+		public System getSystem() {
+			return system;
 		}
-		public void setCodigoEmp(String codigoEmp) {
-			this.codigoEmp = codigoEmp;
+		public void setSystem(System system) {
+			this.system = system;
 		}
-		public String getCodigoFil() {
-			return codigoFil;
+		public Branch getBranch() {
+			return branch;
 		}
-		public void setCodigoFil(String codigoFil) {
-			this.codigoFil = codigoFil;
+		public void setBranch(Branch branch) {
+			this.branch = branch;
 		}
-		public String getCodigoSis() {
-			return codigoSis;
+
+		public User getUser() {
+			return user;
 		}
-		public void setCodigoSis(String codigoSis) {
-			this.codigoSis = codigoSis;
+		public void setUser(User user) {
+			this.user = user;
 		}
-		public String getCodigoUser() {
-			return codigoUser;
+		public Warehouse getWarehouse() {
+			return warehouse;
 		}
-		public void setCodigoUser(String codigoUser) {
-			this.codigoUser = codigoUser;
+		public void setWarehouse(Warehouse warehouse) {
+			this.warehouse = warehouse;
 		}
-		public String getCodigoAlmox() {
-			return codigoAlmox;
-		}
-		public void setCodigoAlmox(String codigoAlmox) {
-			this.codigoAlmox = codigoAlmox;
-		}
-		public String getNomeMenu() {
-			return nomeMenu;
-		}
-		public void setNomeMenu(String nomeMenu) {
-			this.nomeMenu = nomeMenu;
-		}
+
 		public String getIncluir() {
 			return incluir;
 		}
@@ -100,7 +116,7 @@ public class AcessControl implements Serializable{
 		
 		@Override
 		public int hashCode() {
-			return Objects.hash(codigoAlmox, codigoEmp, codigoFil, codigoSis, codigoUser);
+			return Objects.hash(warehouse, system, branch, system, user);
 		}
 		@Override
 		public boolean equals(Object obj) {
@@ -111,8 +127,8 @@ public class AcessControl implements Serializable{
 			if (getClass() != obj.getClass())
 				return false;
 			AcessControl other = (AcessControl) obj;
-			return Objects.equals(codigoAlmox, other.codigoAlmox) && Objects.equals(codigoEmp, other.codigoEmp)
-					&& Objects.equals(codigoFil, other.codigoFil) && Objects.equals(codigoSis, other.codigoSis)
-					&& Objects.equals(codigoUser, other.codigoUser);
+			return Objects.equals(warehouse, other.warehouse) && Objects.equals(system, other.system)
+					&& Objects.equals(branch, other.branch) && Objects.equals(system, other.system)
+					&& Objects.equals(user, other.user);
 		}			
 }
