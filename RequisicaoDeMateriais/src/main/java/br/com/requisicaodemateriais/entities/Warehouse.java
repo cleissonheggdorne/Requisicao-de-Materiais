@@ -7,6 +7,10 @@ import br.com.requisicaodemateriais.entities.compositekeys.WarehouseId;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,15 +22,15 @@ public class Warehouse implements Serializable{
 		@EmbeddedId
 		WarehouseId warehouseId;
 		
-//		@ManyToOne(fetch = FetchType.LAZY)
-//		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
+		@ManyToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
 		private Company company;
 	
-//		@ManyToOne(fetch = FetchType.LAZY)
-//		@JoinColumns({
-//			@JoinColumn(name="codigo_emp",referencedColumnName = "codigo_emp", insertable=false, updatable=false),
-//			@JoinColumn(name="codigo_fil",referencedColumnName = "codigo_fil", insertable=false, updatable=false)
-//		})
+		@ManyToOne(fetch = FetchType.LAZY)
+		@JoinColumns({
+			@JoinColumn(name="codigo_emp",referencedColumnName = "codigo_emp", insertable=false, updatable=false),
+			@JoinColumn(name="codigo_fil",referencedColumnName = "codigo_fil", insertable=false, updatable=false)
+		})
 		private Branch branch;
 		
 		@Column(name="nome_almox")

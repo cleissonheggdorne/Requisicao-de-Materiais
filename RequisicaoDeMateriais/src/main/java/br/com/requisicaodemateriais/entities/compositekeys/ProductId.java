@@ -7,7 +7,7 @@ import java.util.Objects;
 import jakarta.persistence.Embeddable;;
 
 @Embeddable
-public class WarehouseId implements Serializable {
+public class ProductId implements Serializable {
 	
 //	/**
 //	 * 
@@ -18,17 +18,17 @@ public class WarehouseId implements Serializable {
 	private String codigoEmp;
 	@Column(name="codigo_fil")
 	private String codigoFil;
-	@Column(name="codigo_almox")
-	private String codigoAlmox;
+	@Column(name="codigo_prod")
+	private String codigoProd;
 	
-	public WarehouseId() {
+	public ProductId() {
 		
 	}
-	public WarehouseId(String codigoEmp, String codigoFil, String codigoAlmox) {
+	public ProductId(String codigoEmp, String codigoFil, String codigoProd) {
 		super();
 		this.codigoEmp = codigoEmp;
 		this.codigoFil = codigoFil;
-		this.codigoAlmox = codigoAlmox;
+		this.codigoProd = codigoProd;
 	}
 
 	public String getCodigoEmp() {
@@ -47,17 +47,17 @@ public class WarehouseId implements Serializable {
 		this.codigoFil = codigoFil;
 	}
 
-	public String getCodigoAlmox() {
-		return codigoAlmox;
+	public String getcodigoProd() {
+		return codigoProd;
 	}
 
-	public void setCodigoAlmox(String codigoAlmox) {
-		this.codigoAlmox = codigoAlmox;
+	public void setcodigoProd(String codigoProd) {
+		this.codigoProd = codigoProd;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigoAlmox, codigoEmp, codigoFil);
+		return Objects.hash(codigoProd, codigoEmp, codigoFil);
 	}
 
 	@Override
@@ -68,8 +68,8 @@ public class WarehouseId implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		WarehouseId other = (WarehouseId) obj;
-		return Objects.equals(codigoAlmox, other.codigoAlmox) && Objects.equals(codigoEmp, other.codigoEmp)
+		ProductId other = (ProductId) obj;
+		return Objects.equals(codigoProd, other.codigoProd) && Objects.equals(codigoEmp, other.codigoEmp)
 				&& Objects.equals(codigoFil, other.codigoFil);
 	}
 	
