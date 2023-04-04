@@ -3,9 +3,10 @@ package br.com.requisicaodemateriais.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import br.com.requisicaodemateriais.entities.compositekeys.ProductId;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
@@ -15,8 +16,10 @@ import jakarta.persistence.Table;
 @Table(name = "gg_produtos")
 public class Product implements Serializable{
 	private static final long serialVersionUID = 1L;
-
-
+	
+	@EmbeddedId
+	private ProductId productId;
+ 
 	@ManyToOne
 	@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
 	private Company company;
@@ -31,15 +34,23 @@ public class Product implements Serializable{
 	@Column(name="nome_prod")
 	private String nomeProd;
 	
-	public Product() {
-		
+	public Product() {	
 	}
-	
-	public Product(Company company, Branch branch, String nomeProd) {
+
+	public Product(ProductId productId, Company company, Branch branch, String nomeProd) {
 		super();
+		this.productId = productId;
 		this.company = company;
 		this.branch = branch;
 		this.nomeProd = nomeProd;
+	}
+
+	public ProductId getProductId() {
+		return productId;
+	}
+
+	public void setProductId(ProductId productId) {
+		this.productId = productId;
 	}
 
 	public Company getCompany() {
@@ -66,10 +77,9 @@ public class Product implements Serializable{
 		this.nomeProd = nomeProd;
 	}
 
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(branch, company);
+		return Objects.hash(branch, company, productId);
 	}
 
 	@Override
@@ -81,7 +91,7 @@ public class Product implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		return Objects.equals(branch, other.branch) && Objects.equals(company, other.company);
-	}
-		
+		return Objects.equals(branch, other.branch) && Objects.equals(company, other.company)
+				&& Objects.equals(productId, other.productId);
+	}	
 }
