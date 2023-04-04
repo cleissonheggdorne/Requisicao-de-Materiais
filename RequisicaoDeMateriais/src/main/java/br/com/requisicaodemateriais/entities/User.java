@@ -25,21 +25,14 @@ public class User implements Serializable{
 	private UserId userId;
 	
 	
-	@MapsId("system")
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="codigo_sis", referencedColumnName = "codigo_sis")
+	//@MapsId("system")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="codigo_sis", referencedColumnName = "codigo_sis", insertable = false, updatable = false)
 	private System system;
 	
 	@ManyToOne
 	@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
 	private Company company;
-	
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false),
-		@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false)
-	})
-	private Branch branch;
 	
 	@OneToOne
 	@JoinColumns({
@@ -62,13 +55,12 @@ public class User implements Serializable{
 	}
 
 
-	public User(System system, UserId userId, Company company, Branch branch, General pessoa, String userName,
+	public User(System system, UserId userId, Company company, General pessoa, String userName,
 			String statusUser, String codigoGrpUser, String senha) {
 		super();
 		this.system = system;
 		this.userId = userId;
 		this.company = company;
-		this.branch = branch;
 		this.pessoa = pessoa;
 		this.userName = userName;
 		this.statusUser = statusUser;
@@ -113,17 +105,6 @@ public class User implements Serializable{
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-
-
-	public Branch getBranch() {
-		return branch;
-	}
-
-
-	public void setBranch(Branch branch) {
-		this.branch = branch;
-	}
-
 
 	public General getPessoa() {
 		return pessoa;
@@ -177,7 +158,7 @@ public class User implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(branch, codigoGrpUser, userId, pessoa);
+		return Objects.hash(codigoGrpUser, userId, pessoa);
 	}
 
 
@@ -190,7 +171,7 @@ public class User implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(branch, other.branch) && Objects.equals(codigoGrpUser, other.codigoGrpUser)
+		return  Objects.equals(codigoGrpUser, other.codigoGrpUser)
 				&& Objects.equals(userId, other.userId) && Objects.equals(pessoa, other.pessoa);
 	}
 

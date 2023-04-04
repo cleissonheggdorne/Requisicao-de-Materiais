@@ -1,52 +1,45 @@
 package br.com.requisicaodemateriais.entities.compositekeys;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class BranchId implements Serializable {
-	
-	
-	private static final long serialVersionUID = 1L;
-	
-	
+public class AllocationId {
 	@Column(name="codigo_emp")
 	private String codigoEmp;
 	@Column(name="codigo_fil")
 	private String codigoFil;
+	@Column(name="codigo_ficha")
+	private String codigoFicha;
 	
-	public BranchId() {
+	public AllocationId() {
 		
 	}
 
-	public BranchId(String codigoEmp, String codigoFil) {
+	public AllocationId(String codigoEmp, String codigoFil, String codigoFicha) {
 		super();
 		this.codigoEmp = codigoEmp;
 		this.codigoFil = codigoFil;
+		this.codigoFicha = codigoFicha;
 	}
 
 	public String getCodigoEmp() {
 		return codigoEmp;
 	}
 
-	public void setCodigoEmp(String codigoEmp) {
-		this.codigoEmp = codigoEmp;
-	}
-
 	public String getCodigoFil() {
 		return codigoFil;
 	}
 
-	public void setCodigoFil(String codigoFil) {
-		this.codigoFil = codigoFil;
+	public String getcodigoFicha() {
+		return codigoFicha;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codigoFil, codigoEmp);
+		return Objects.hash(codigoFicha, codigoEmp, codigoFil);
 	}
 
 	@Override
@@ -57,10 +50,9 @@ public class BranchId implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BranchId other = (BranchId) obj;
-		return Objects.equals(codigoFil, other.codigoFil) && Objects.equals(codigoEmp, other.codigoEmp);
+		AllocationId other = (AllocationId) obj;
+		return Objects.equals(codigoFicha, other.codigoFicha) && Objects.equals(codigoEmp, other.codigoEmp)
+				&& Objects.equals(codigoFil, other.codigoFil);
 	}
-
 	
-
 }

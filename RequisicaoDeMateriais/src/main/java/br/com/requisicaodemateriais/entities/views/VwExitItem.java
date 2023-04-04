@@ -4,9 +4,15 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import br.com.requisicaodemateriais.entities.Branch;
+import br.com.requisicaodemateriais.entities.Company;
+import br.com.requisicaodemateriais.entities.compositekeys.VwExitItemId;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,15 +21,31 @@ public class VwExitItem implements Serializable{
 
 		private static final long serialVersionUID = 1L;
 		
-		@Id
-		@Column(name="codigo_emp")
-		private String codigoEmp;
-		@Column(name ="codigo_fil")
-		private String codigoFil;
-		@Column(name="ano")
-		private String ano;
-		@Column(name="num_ped_saida")
-		private String numeroSaida;
+		
+		@EmbeddedId
+		private VwExitItemId vwExitItemId;
+		
+		@ManyToOne
+		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
+		private Company company;
+		
+		
+		@ManyToOne
+		@JoinColumns({
+			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
+			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false)
+		})
+		private Branch branch;
+		
+		@ManyToOne
+		@JoinColumns({
+			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
+			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false),
+			@JoinColumn(name="ano", referencedColumnName = "ano", insertable=false, updatable=false),
+			@JoinColumn(name="num_ped_saida", referencedColumnName = "num_ped_saida", insertable=false, updatable=false)
+		})
+		private VwExitNote vwExitNote;
+		
 		@Column(name="codigo_prod")
 		private Date codigoProd;
 		@Column(name="nome_prod")
@@ -36,65 +58,89 @@ public class VwExitItem implements Serializable{
 		private double qtdSolicitada;
 		@Column(name="saida_liberada")
 		private double saidaLiberada;
-		public String getCodigoEmp() {
-			return codigoEmp;
+		
+		public VwExitItem () {
+			
 		}
-		public void setCodigoEmp(String codigoEmp) {
-			this.codigoEmp = codigoEmp;
+
+		public VwExitItem(VwExitItemId vwExitItemId, Company company, Branch branch, VwExitNote vwExitNote,
+				Date codigoProd, String nomeProd, String descricaoItem, String abreviaturaUnidade, double qtdSolicitada,
+				double saidaLiberada) {
+			super();
+			this.vwExitItemId = vwExitItemId;
+			this.company = company;
+			this.branch = branch;
+			this.vwExitNote = vwExitNote;
+			this.codigoProd = codigoProd;
+			this.nomeProd = nomeProd;
+			this.descricaoItem = descricaoItem;
+			this.abreviaturaUnidade = abreviaturaUnidade;
+			this.qtdSolicitada = qtdSolicitada;
+			this.saidaLiberada = saidaLiberada;
 		}
-		public String getCodigoFil() {
-			return codigoFil;
+
+		public static long getSerialversionuid() {
+			return serialVersionUID;
 		}
-		public void setCodigoFil(String codigoFil) {
-			this.codigoFil = codigoFil;
+
+		public VwExitItemId getVwExitItemId() {
+			return vwExitItemId;
 		}
-		public String getAno() {
-			return ano;
+
+		public Company getCompany() {
+			return company;
 		}
-		public void setAno(String ano) {
-			this.ano = ano;
+
+		public Branch getBranch() {
+			return branch;
 		}
-		public String getNumeroSaida() {
-			return numeroSaida;
+
+		public VwExitNote getVwExitNote() {
+			return vwExitNote;
 		}
-		public void setNumeroSaida(String numeroSaida) {
-			this.numeroSaida = numeroSaida;
-		}
+
 		public Date getCodigoProd() {
 			return codigoProd;
 		}
-		public void setCodigoProd(Date codigoProd) {
-			this.codigoProd = codigoProd;
-		}
+
 		public String getNomeProd() {
 			return nomeProd;
 		}
-		public void setNomeProd(String nomeProd) {
-			this.nomeProd = nomeProd;
-		}
+
 		public String getDescricaoItem() {
 			return descricaoItem;
 		}
-		public void setDescricaoItem(String descricaoItem) {
-			this.descricaoItem = descricaoItem;
-		}
+
 		public String getAbreviaturaUnidade() {
 			return abreviaturaUnidade;
 		}
-		public void setAbreviaturaUnidade(String abreviaturaUnidade) {
-			this.abreviaturaUnidade = abreviaturaUnidade;
-		}
+
 		public double getQtdSolicitada() {
 			return qtdSolicitada;
 		}
-		public void setQtdSolicitada(double qtdSolicitada) {
-			this.qtdSolicitada = qtdSolicitada;
-		}
+
 		public double getSaidaLiberada() {
 			return saidaLiberada;
 		}
-		public void setSaidaLiberada(double saidaLiberada) {
-			this.saidaLiberada = saidaLiberada;
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(branch, company, vwExitItemId, vwExitNote);
 		}
-			
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			VwExitItem other = (VwExitItem) obj;
+			return  Objects.equals(branch, other.branch)
+					&& Objects.equals(company, other.company) && Objects.equals(vwExitItemId, other.vwExitItemId)
+					&& Objects.equals(vwExitNote, other.vwExitNote);
+		}
+		
+		
 }
