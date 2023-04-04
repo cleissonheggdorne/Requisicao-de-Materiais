@@ -33,18 +33,18 @@ public class AcessControl implements Serializable{
 		})
 		private Branch branch;
 		
-		@ManyToOne()
+		@ManyToOne(fetch = FetchType.LAZY)
 		@JoinColumn(name="codigo_sis", referencedColumnName = "codigo_sis", insertable=false, updatable=false)
 		private System system;
 		
-		@ManyToOne()
+		@ManyToOne(fetch = FetchType.LAZY)
 		@JoinColumns({
 			@JoinColumn(name="codigo_user",referencedColumnName = "codigo_user", insertable=false, updatable=false),
 			@JoinColumn(name="codigo_sis",referencedColumnName = "codigo_sis", insertable=false, updatable=false)
 		})
 		private User user;
 		
-		@ManyToOne()
+		@ManyToOne(fetch = FetchType.LAZY)
 		@JoinColumns({
 			@JoinColumn(name="codigo_emp",referencedColumnName = "codigo_emp", insertable=false, updatable=false),
 			@JoinColumn(name="codigo_fil",referencedColumnName = "codigo_fil", insertable=false, updatable=false),

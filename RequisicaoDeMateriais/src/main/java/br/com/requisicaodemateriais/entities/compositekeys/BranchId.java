@@ -14,39 +14,39 @@ public class BranchId implements Serializable {
 	
 	
 	@Column(name="codigo_emp")
-	private String company;
+	private String codigoEmp;
 	@Column(name="codigo_fil")
-	private String branch;
+	private String codigoFil;
 	
 	public BranchId() {
 		
 	}
 
-	public BranchId(String company, String branch) {
+	public BranchId(String codigoEmp, String codigoFil) {
 		super();
-		this.company = company;
-		this.branch = branch;
+		this.codigoEmp = codigoEmp;
+		this.codigoFil = codigoFil;
 	}
 
-	public String getCompany() {
-		return company;
+	public String getCodigoEmp() {
+		return codigoEmp;
 	}
 
-	public void setCompany(String company) {
-		this.company = company;
+	public void setCodigoEmp(String codigoEmp) {
+		this.codigoEmp = codigoEmp;
 	}
 
-	public String getBranch() {
-		return branch;
+	public String getCodigoFil() {
+		return codigoFil;
 	}
 
-	public void setBranch(String branch) {
-		this.branch = branch;
+	public void setCodigoFil(String codigoFil) {
+		this.codigoFil = codigoFil;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(branch, company);
+		return Objects.hash(codigoFil, codigoEmp);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class BranchId implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		BranchId other = (BranchId) obj;
-		return Objects.equals(branch, other.branch) && Objects.equals(company, other.company);
+		return Objects.equals(codigoFil, other.codigoFil) && Objects.equals(codigoEmp, other.codigoEmp);
 	}
 
 	
