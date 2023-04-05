@@ -61,7 +61,7 @@ public class AuthController {
 		//Verifica se dados foram digitados conforme validação userDto
 		if(br.hasErrors()) {
 			model.addAttribute("msg", "Preencha as credenciais para prosseguir!");
-			return("login");
+			return("redirect:/api/login");
 		}
 		
 		Optional<User> user = userService.login(userDto.getUserName(),userDto.getSenha());

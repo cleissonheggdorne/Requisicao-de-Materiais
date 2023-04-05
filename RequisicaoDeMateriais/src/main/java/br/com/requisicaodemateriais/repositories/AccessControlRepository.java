@@ -18,4 +18,5 @@ public interface AccessControlRepository extends JpaRepository<AcessControl, Str
 			+ "i.incluir = 'S'")
 	public Optional<AcessControl> verifyAccess(@Param("emp") String codigoEmp, @Param("fil") String codigoFil,
 			@Param("sis") String codigoSis, @Param("user") String codigoUser);
+
 }
