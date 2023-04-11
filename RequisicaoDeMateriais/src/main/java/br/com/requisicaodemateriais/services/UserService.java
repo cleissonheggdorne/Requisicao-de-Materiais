@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import br.com.requisicaodemateriais.entities.User;
+import br.com.requisicaodemateriais.entities.projections.UserProjection;
 import br.com.requisicaodemateriais.repositories.UserRepository;
 
 @Service
@@ -17,8 +18,8 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 	
-	public Optional<User> login(String userName, String password) throws ClassServiceException {
-		return userRepository.searchLogin(userName, password);
+	public Optional<UserProjection> login(String userName, String password) throws ClassServiceException {
+		return userRepository.findByUserNameAndSenhaAndUserIdSystem(userName, password, "06");
 	}
 	
 }

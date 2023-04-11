@@ -9,6 +9,7 @@ import br.com.requisicaodemateriais.entities.compositekeys.GeneralId;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
@@ -25,7 +26,7 @@ public class General implements Serializable{
 	@EmbeddedId
 	private GeneralId generalId;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("company")
 	@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp")
 	private Company company;

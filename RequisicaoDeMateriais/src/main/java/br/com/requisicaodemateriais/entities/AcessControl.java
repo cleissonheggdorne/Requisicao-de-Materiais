@@ -26,7 +26,7 @@ public class AcessControl implements Serializable{
 		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
 		private Company company;
 	
-		@ManyToOne()
+		@ManyToOne(fetch = FetchType.LAZY)
 		@JoinColumns({
 			@JoinColumn(name="codigo_emp",referencedColumnName = "codigo_emp", insertable=false, updatable=false),
 			@JoinColumn(name="codigo_fil",referencedColumnName = "codigo_fil", insertable=false, updatable=false)
@@ -51,7 +51,6 @@ public class AcessControl implements Serializable{
 			@JoinColumn(name="codigo_almox",referencedColumnName = "codigo_almox", insertable=false, updatable=false)
 		})
 		private Warehouse warehouse;
-		
 		
 		@Column(name="incluir")
 		private String incluir;

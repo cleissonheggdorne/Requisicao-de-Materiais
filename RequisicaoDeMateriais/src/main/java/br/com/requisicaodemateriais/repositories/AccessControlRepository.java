@@ -1,5 +1,6 @@
 package br.com.requisicaodemateriais.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +19,6 @@ public interface AccessControlRepository extends JpaRepository<AcessControl, Str
 			+ "i.incluir = 'S'")
 	public Optional<AcessControl> verifyAccess(@Param("emp") String codigoEmp, @Param("fil") String codigoFil,
 			@Param("sis") String codigoSis, @Param("user") String codigoUser);
-
+	
+	public List<AcessControl> findByUser_UserIdCodigoUserAndAcessControlIdNomeMenu(String codigoUser, String nomeMenu);
 }

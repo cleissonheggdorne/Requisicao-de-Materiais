@@ -24,16 +24,15 @@ public class User implements Serializable{
 	private UserId userId;
 	
 	
-	//@MapsId("system")
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="codigo_sis", referencedColumnName = "codigo_sis", insertable = false, updatable = false)
 	private System system;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
 	private Company company;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
 		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false),
 		@JoinColumn(name="codigo_g", referencedColumnName = "codigo_g", insertable=false, updatable=false)
@@ -43,7 +42,7 @@ public class User implements Serializable{
 	private String userName;
 	@Column(name="status_user")
 	private String statusUser;
-	@Column(name="codigo_grp_usr")//chave estrangeira
+	@Column(name="codigo_grp_usr") //chave estrangeira
 	private String codigoGrpUser;
 	@Column(name ="senha")
 	private String senha;
