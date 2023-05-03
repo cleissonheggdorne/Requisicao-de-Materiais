@@ -1,7 +1,7 @@
 package br.com.requisicaodemateriais.entities.views;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 import br.com.requisicaodemateriais.entities.Branch;
@@ -47,25 +47,25 @@ public class VwExitItem implements Serializable{
 		private VwExitNote vwExitNote;
 		
 		@Column(name="codigo_prod")
-		private Date codigoProd;
+		private char codigoProd;
 		@Column(name="nome_prod")
 		private String nomeProd;
 		@Column(name="descricao_item")
 		private String descricaoItem;
 		@Column(name="abreviatura_embalag")
-		private String abreviaturaUnidade;
+		private char abreviaturaUnidade;
 		@Column(name="qtd_solicitada")
-		private double qtdSolicitada;
+		private BigDecimal qtdSolicitada;
 		@Column(name="saida_liberada")
-		private double saidaLiberada;
+		private char saidaLiberada;
 		
 		public VwExitItem () {
 			
 		}
 
 		public VwExitItem(VwExitItemId vwExitItemId, Company company, Branch branch, VwExitNote vwExitNote,
-				Date codigoProd, String nomeProd, String descricaoItem, String abreviaturaUnidade, double qtdSolicitada,
-				double saidaLiberada) {
+				char codigoProd, String nomeProd, String descricaoItem, char abreviaturaUnidade, BigDecimal qtdSolicitada,
+				char saidaLiberada) {
 			super();
 			this.vwExitItemId = vwExitItemId;
 			this.company = company;
@@ -99,7 +99,7 @@ public class VwExitItem implements Serializable{
 			return vwExitNote;
 		}
 
-		public Date getCodigoProd() {
+		public char getCodigoProd() {
 			return codigoProd;
 		}
 
@@ -111,15 +111,15 @@ public class VwExitItem implements Serializable{
 			return descricaoItem;
 		}
 
-		public String getAbreviaturaUnidade() {
+		public char getAbreviaturaUnidade() {
 			return abreviaturaUnidade;
 		}
 
-		public double getQtdSolicitada() {
+		public BigDecimal getQtdSolicitada() {
 			return qtdSolicitada;
 		}
 
-		public double getSaidaLiberada() {
+		public char getSaidaLiberada() {
 			return saidaLiberada;
 		}
 

@@ -1,8 +1,6 @@
 package br.com.requisicaodemateriais.entities.views;
 
 import java.io.Serializable;
-import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -21,11 +19,11 @@ public class VwBalance implements Serializable{
 		private String codigoFil;
 		//@Column(name="codigo_saldo") talvez entre
 		@Column(name="codigo_almox")
-		private String codigoAlmox;
+		private char codigoAlmox;
 		@Column(name="codigo_ficha")
-		private String codigoFicha;
+		private char codigoFicha;
 		@Column(name="codigo_prod")
-		private String codigoProd;
+		private char codigoProd;
 		@Column(name="nome_prod")
 		private String nomeProd;
 		//@Column(name="qtd") talvez entre teria q ser diferente de 0
@@ -33,37 +31,25 @@ public class VwBalance implements Serializable{
 		public String getCodigoEmp() {
 			return codigoEmp;
 		}
-		public void setCodigoEmp(String codigoEmp) {
-			this.codigoEmp = codigoEmp;
-		}
+	
 		public String getCodigoFil() {
 			return codigoFil;
 		}
-		public void setCodigoFil(String codigoFil) {
-			this.codigoFil = codigoFil;
-		}
-		public String getCodigoAlmox() {
+	
+		public char getCodigoAlmox() {
 			return codigoAlmox;
 		}
-		public void setCodigoAlmox(String codigoAlmox) {
-			this.codigoAlmox = codigoAlmox;
-		}
-		public String getCodigoFicha() {
+		
+		public char getCodigoFicha() {
 			return codigoFicha;
 		}
-		public void setCodigoFicha(String codigoFicha) {
-			this.codigoFicha = codigoFicha;
-		}
-		public String getCodigoProd() {
+	
+		public char getCodigoProd() {
 			return codigoProd;
 		}
-		public void setCodigoProd(String codigoProd) {
-			this.codigoProd = codigoProd;
-		}
+	
 		public String getNomeProd() {
 			return nomeProd;
 		}
-		public void setNomeProd(String nomeProd) {
-			this.nomeProd = nomeProd;
-		}
+	
 }

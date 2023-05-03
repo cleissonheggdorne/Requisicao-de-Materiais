@@ -21,13 +21,13 @@ public class LocaleService {
 	}
 	
 	public Optional<Locale> verifyPermissionPedidoCompras(User user) throws ClassServiceException {
-		return localRepository.searchLocale(user.getCompany().getCodigoEmp(),
+		return localRepository.searchLocale("001",
 				                     "001",
-				                     user.getPessoa().getGeneralId().getCodigoG());
+				                     user.getPessoa().getCodigoG());
 	}
 	
 	public List<LocaleProjection> findByGeneral_GeneralIdCodigoG(String codigoG){
-		return localRepository.findByGeneral_GeneralIdCodigoG(codigoG);
+		return localRepository.findByCodigoG_IdCodigoGAndRequisicaoSN(codigoG, "S");
 	}
 	
 }

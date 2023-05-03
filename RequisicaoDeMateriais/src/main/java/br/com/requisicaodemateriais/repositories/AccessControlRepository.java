@@ -8,17 +8,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import br.com.requisicaodemateriais.entities.AcessControl;
+import br.com.requisicaodemateriais.entities.projections.AccessControlProjection;
 
 public interface AccessControlRepository extends JpaRepository<AcessControl, String> {
-	@Query("select i from AcessControl i \r\n"
-			+ "where i.id.codigoEmp = :emp and \r\n"
-			+ "i.id.codigoFil = :fil and \r\n"
-			+ "i.id.codigoSis = :sis and \r\n"
-			+ "i.id.codigoUser = :user and \r\n"
-			+ "i.id.nomeMenu = 'Requisição de Material' and \r\n"
-			+ "i.incluir = 'S'")
-	public Optional<AcessControl> verifyAccess(@Param("emp") String codigoEmp, @Param("fil") String codigoFil,
-			@Param("sis") String codigoSis, @Param("user") String codigoUser);
-	
-	public List<AcessControl> findByUser_UserIdCodigoUserAndAcessControlIdNomeMenu(String codigoUser, String nomeMenu);
+//	@Query("select i from AcessControl i \r\n"
+//			+ "where i.id.codigoEmp = :emp and \r\n"
+//			+ "i.id.codigoFil = :fil and \r\n"
+//			+ "i.id.codigoSis = :sis and \r\n"
+//			+ "i.id.codigoUser = :user and \r\n"
+//			+ "i.id.nomeMenu = 'Requisição de Material' and \r\n"
+//			+ "i.incluir = 'S'")
+//	public Optional<AcessControl> verifyAccess(@Param("emp") String codigoEmp, @Param("fil") String codigoFil,
+//			@Param("sis") String codigoSis, @Param("user") String codigoUser);
+//	
+	public List<AccessControlProjection> findById_CodigoUserIdCodigoUserAndIdNomeMenuAndIncluir(String codigoUser, String nomeMenu, String incluir);
 }

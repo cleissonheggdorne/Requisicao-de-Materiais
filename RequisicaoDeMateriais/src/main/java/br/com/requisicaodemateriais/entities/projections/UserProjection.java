@@ -7,9 +7,9 @@ package br.com.requisicaodemateriais.entities.projections;
  * concatenado com o nome do campo a trazer Ex: getPessoaCodigoG()
  */
 public interface UserProjection {
-	String getCompanyCodigoEmp();
 	String getUserName();
-	String getUserIdCodigoUser(); 
-	String getPessoaGeneralIdCodigoG();
-	//List<Locale> getPessoaLocales();
+	String getIdCodigoUser(); 
+	String getPessoaIdCodigoG();
+	String getPessoaNameG();
+	
 }

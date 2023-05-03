@@ -1,8 +1,8 @@
 package br.com.requisicaodemateriais.entities.projections;
 
 public interface LocaleProjection {
-	String getLocaleIdCodigoLocal();
-	String getLocaleNameNomeLocal();
+	String getIdCodigoLocal();
+	String getCodigoLocalNomeLocal();
 	String getDataFinal();
 	String getRequisicaoSN();
 }

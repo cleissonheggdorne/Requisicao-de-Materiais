@@ -1,9 +1,11 @@
 package br.com.requisicaodemateriais.entities;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.List;
+import java.util.Optional;
 
 import br.com.requisicaodemateriais.entities.compositekeys.UserId;
+import br.com.requisicaodemateriais.services.UserService;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -11,31 +13,39 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "gg_usuario")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@EmbeddedId
-	private UserId userId;
+	private UserId id;
 	
-	
+	@MapsId("codigoSis")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="codigo_sis", referencedColumnName = "codigo_sis", insertable = false, updatable = false)
-	private System system;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
-	private Company company;
+	@JoinColumn(name="codigo_sis")
+	private GgSystem codigoSis;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
-		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false),
-		@JoinColumn(name="codigo_g", referencedColumnName = "codigo_g", insertable=false, updatable=false)
+		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp"),
+		@JoinColumn(name="codigo_g", referencedColumnName = "codigo_g")
 	})
 	private General pessoa;
 	@Column(name="user_name")
@@ -47,132 +57,9 @@ public class User implements Serializable{
 	@Column(name ="senha")
 	private String senha;
 	
-	
-	public User() {
-
+	public static Optional<User> createUser(String codigoUser, UserService userService) {
+	    return userService.findUser(codigoUser);
 	}
-
-
-	public User(System system, UserId userId, Company company, General pessoa, String userName,
-			String statusUser, String codigoGrpUser, String senha) {
-		super();
-		this.system = system;
-		this.userId = userId;
-		this.company = company;
-		this.pessoa = pessoa;
-		this.userName = userName;
-		this.statusUser = statusUser;
-		this.codigoGrpUser = codigoGrpUser;
-		this.senha = senha;
-	}
-
-	public UserId getUserId() {
-		return userId;
-	}
-
-
-	public void setUserId(UserId userId) {
-		this.userId = userId;
-	}
-	
-	public System getSystem() {
-		return system;
-	}
-
-
-	public void setSystem(System system) {
-		this.system = system;
-	}
-
-
-	public UserId getCodigoUser() {
-		return userId;
-	}
-
-
-	public void setCodigoUser(UserId userId) {
-		this.userId = userId;
-	}
-
-
-	public Company getCompany() {
-		return company;
-	}
-
-
-	public void setCompany(Company company) {
-		this.company = company;
-	}
-
-	public General getPessoa() {
-		return pessoa;
-	}
-
-
-	public void setPessoa(General pessoa) {
-		this.pessoa = pessoa;
-	}
-
-
-	public String getUserName() {
-		return userName;
-	}
-
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-
-	public String getStatusUser() {
-		return statusUser;
-	}
-
-
-	public void setStatusUser(String statusUser) {
-		this.statusUser = statusUser;
-	}
-
-
-	public String getCodigoGrpUser() {
-		return codigoGrpUser;
-	}
-
-
-	public void setCodigoGrpUser(String codigoGrpUser) {
-		this.codigoGrpUser = codigoGrpUser;
-	}
-
-
-	public String getSenha() {
-		return senha;
-	}
-
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(codigoGrpUser, userId, pessoa);
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		return  Objects.equals(codigoGrpUser, other.codigoGrpUser)
-				&& Objects.equals(userId, other.userId) && Objects.equals(pessoa, other.pessoa);
-	}
-
 
 	
 }

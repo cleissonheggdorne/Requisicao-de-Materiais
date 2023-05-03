@@ -1,7 +1,7 @@
 package br.com.requisicaodemateriais.entities.views;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import br.com.requisicaodemateriais.entities.Branch;
@@ -39,9 +39,9 @@ public class VwExitNote implements Serializable{
 		@Column(name="codigo_g_receptor")//codigo_g de outras tabelas
 		private String codigoGG;
 		@Column(name="data_saida")
-		private Date dataSaida;
+		private LocalDate dataSaida;
 		@Column(name="codigo_almox")
-		private String codigoAlmox;
+		private char codigoAlmox;
 		@Column(name="destinacao")
 		private String destinacao;
 		@Column(name="codigo_local")
@@ -51,8 +51,8 @@ public class VwExitNote implements Serializable{
 			
 		}
 
-		public VwExitNote(VwExitNotaId vwExitNotaId, Company company, Branch branch, String codigoGG, Date dataSaida,
-				String codigoAlmox, String destinacao, String codigoLocal) {
+		public VwExitNote(VwExitNotaId vwExitNotaId, Company company, Branch branch, String codigoGG, LocalDate dataSaida,
+				char codigoAlmox, String destinacao, String codigoLocal) {
 			super();
 			this.vwExitNotaId = vwExitNotaId;
 			this.company = company;
@@ -84,11 +84,11 @@ public class VwExitNote implements Serializable{
 			return codigoGG;
 		}
 
-		public Date getDataSaida() {
+		public LocalDate getDataSaida() {
 			return dataSaida;
 		}
 
-		public String getCodigoAlmox() {
+		public char getCodigoAlmox() {
 			return codigoAlmox;
 		}
 

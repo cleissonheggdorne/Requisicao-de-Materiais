@@ -1,9 +1,19 @@
 package br.com.requisicaodemateriais.dtos;
 
+import java.io.Serializable;
+
+import org.springframework.validation.annotation.Validated;
+
 import jakarta.validation.constraints.NotEmpty;
 
-public class UserDto {
+@Validated
+public class UserDto implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@NotEmpty
 	String userName;
 	
@@ -20,6 +30,5 @@ public class UserDto {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
 	
 }

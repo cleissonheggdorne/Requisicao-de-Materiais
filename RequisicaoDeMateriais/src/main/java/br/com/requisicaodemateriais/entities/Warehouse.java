@@ -1,9 +1,10 @@
 package br.com.requisicaodemateriais.entities;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.Optional;
 
 import br.com.requisicaodemateriais.entities.compositekeys.WarehouseId;
+import br.com.requisicaodemateriais.services.WarehouseService;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -12,95 +13,48 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "al_almox")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 public class Warehouse implements Serializable{
 
 		private static final long serialVersionUID = 1L;
-		
+
 		@EmbeddedId
-		WarehouseId warehouseId;
+		private WarehouseId id;
 		
+		//@MapsId("codigoEmp")
 		@ManyToOne(fetch = FetchType.LAZY)
 		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
-		private Company company;
-	
+		private Company codigoEmp;
+		
+		//@MapsId("codigoFil")
 		@ManyToOne(fetch = FetchType.LAZY)
 		@JoinColumns({
-			@JoinColumn(name="codigo_emp",referencedColumnName = "codigo_emp", insertable=false, updatable=false),
-			@JoinColumn(name="codigo_fil",referencedColumnName = "codigo_fil", insertable=false, updatable=false)
+			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false),
+			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false)
 		})
-		private Branch branch;
+		private Branch codigoFil;
+		
+		//@MapsId("codigoAlmox")
+//		@Column(name="codigo_almox", insertable=false, updatable=false)
+//		private String codigoAlmox;
 		
 		@Column(name="nome_almox")
 		private String nomeAlmox;
 		
-		public Warehouse() {
-			
+		public static Optional<Warehouse> createWarehouse(String codigoAlmox, WarehouseService warehouseService) {
+		    return warehouseService.findWarehouse(codigoAlmox);
 		}
 
-		public Warehouse(WarehouseId warehouseId, Company company, Branch branch, String nomeAlmox) {
-			super();
-			this.warehouseId = warehouseId;
-			this.company = company;
-			this.branch = branch;
-			this.nomeAlmox = nomeAlmox;
-		}
-
-		public WarehouseId getWarehouseId() {
-			return warehouseId;
-		}
-
-		public void setWarehouseId(WarehouseId warehouseId) {
-			this.warehouseId = warehouseId;
-		}
-
-		public Company getCompany() {
-			return company;
-		}
-
-		public void setCompany(Company company) {
-			this.company = company;
-		}
-
-		public Branch getBranch() {
-			return branch;
-		}
-
-		public void setBranch(Branch branch) {
-			this.branch = branch;
-		}
-
-		public String getNomeAlmox() {
-			return nomeAlmox;
-		}
-
-		public void setNomeAlmox(String nomeAlmox) {
-			this.nomeAlmox = nomeAlmox;
-		}
-
-		public static long getSerialversionuid() {
-			return serialVersionUID;
-		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(branch, company, nomeAlmox, warehouseId);
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Warehouse other = (Warehouse) obj;
-			return Objects.equals(branch, other.branch) && Objects.equals(company, other.company)
-					&& Objects.equals(nomeAlmox, other.nomeAlmox) && Objects.equals(warehouseId, other.warehouseId);
-		}
-		
-		
 }

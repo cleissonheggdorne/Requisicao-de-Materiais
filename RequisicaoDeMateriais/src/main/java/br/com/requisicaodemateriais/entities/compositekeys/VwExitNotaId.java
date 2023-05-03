@@ -1,25 +1,30 @@
 package br.com.requisicaodemateriais.entities.compositekeys;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public class VwExitNotaId {
+public class VwExitNotaId implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Column(name="codigo_emp")
 	private String codigoEmp;
 	@Column(name="codigo_fil")
 	private String codigoFil;
 	@Column(name="ano")
-	private String ano;
+	private char ano;
 	@Column(name="num_ped_saida")
-	private String numeroSaida;
+	private char numeroSaida;
 	
 	public VwExitNotaId() {	
 	}
 
-	public VwExitNotaId(String codigoEmp, String codigoFil, String ano, String numeroSaida) {
+	public VwExitNotaId(String codigoEmp, String codigoFil, char ano, char numeroSaida) {
 		super();
 		this.codigoEmp = codigoEmp;
 		this.codigoFil = codigoFil;
@@ -35,11 +40,11 @@ public class VwExitNotaId {
 		return codigoFil;
 	}
 
-	public String getAno() {
+	public char getAno() {
 		return ano;
 	}
 
-	public String getNumeroSaida() {
+	public char getNumeroSaida() {
 		return numeroSaida;
 	}
 

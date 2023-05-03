@@ -1,104 +1,49 @@
 package br.com.requisicaodemateriais.entities.compositekeys;
 
-import java.util.Objects;
+import java.io.Serializable;
 
+import br.com.requisicaodemateriais.entities.User;
+import br.com.requisicaodemateriais.entities.Warehouse;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 @Embeddable
-public class AcessControlId {
+public class AcessControlId implements Serializable{
 	
-	@Column(name="codigo_emp")//chave estrangeira
-	private String codigoEmp;
-	@Column(name="codigo_fil")//chave estrangeira
-	private String codigoFil;
-	@Column(name="codigo_sis")//chave estrangeira
-	private String codigoSis;
-	@Column(name="codigo_user")//chave estrangeira
-	private String codigoUser;
-	@Column(name="codigo_almox")//chave estrangeira
-	private String codigoAlmox;
+	private static final long serialVersionUID = 1L;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({
+		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp"),
+		@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil"),
+		@JoinColumn(name="codigo_almox", referencedColumnName = "codigo_almox")
+	})
+	private Warehouse codigoAlmox;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({
+		@JoinColumn(name="codigo_user",referencedColumnName = "codigo_user"),
+		@JoinColumn(name="codigo_sis",referencedColumnName = "codigo_sis")
+	})
+	private User codigoUser;
+	
 	@Column(name="nome_menu")
 	private String nomeMenu;
 	
-	public AcessControlId() {
-		
-	}
-	
-	public AcessControlId(String codigoEmp, String codigoFil, String codigoSis, String codigoUser, String codigoAlmox, String nomeMenu) {
-		super();
-		this.codigoEmp = codigoEmp;
-		this.codigoFil = codigoFil;
-		this.codigoSis = codigoSis;
-		this.codigoUser = codigoUser;
-		this.codigoAlmox = codigoAlmox;
-		this.nomeMenu = nomeMenu;
-	}
-	
-	
-	
-	public String getCodigoEmp() {
-		return codigoEmp;
-	}
-
-	public void setCodigoEmp(String codigoEmp) {
-		this.codigoEmp = codigoEmp;
-	}
-
-	public String getCodigoFil() {
-		return codigoFil;
-	}
-
-	public void setCodigoFil(String codigoFil) {
-		this.codigoFil = codigoFil;
-	}
-
-	public String getCodigoSis() {
-		return codigoSis;
-	}
-
-	public void setCodigoSis(String codigoSis) {
-		this.codigoSis = codigoSis;
-	}
-
-	public String getCodigoUser() {
-		return codigoUser;
-	}
-
-	public void setCodigoUser(String codigoUser) {
-		this.codigoUser = codigoUser;
-	}
-
-	public String getCodigoAlmox() {
-		return codigoAlmox;
-	}
-
-	public void setCodigoAlmox(String codigoAlmox) {
-		this.codigoAlmox = codigoAlmox;
-	}
-	
-	public String getNomeMenu() {
-		return nomeMenu;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(codigoAlmox, codigoEmp, codigoFil, codigoSis, codigoUser, nomeMenu);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AcessControlId other = (AcessControlId) obj;
-		return Objects.equals(codigoAlmox, other.codigoAlmox) && Objects.equals(codigoEmp, other.codigoEmp)
-				&& Objects.equals(codigoFil, other.codigoFil) && Objects.equals(codigoSis, other.codigoSis)
-				&& Objects.equals(codigoUser, other.codigoUser)
-				&& Objects.equals(nomeMenu, other.nomeMenu);
-	}
 	
 }

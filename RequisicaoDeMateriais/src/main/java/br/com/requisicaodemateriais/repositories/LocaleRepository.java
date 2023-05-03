@@ -12,7 +12,7 @@ import br.com.requisicaodemateriais.entities.compositekeys.LocaleId;
 import br.com.requisicaodemateriais.entities.projections.LocaleProjection;
 
 public interface LocaleRepository extends JpaRepository<Locale, LocaleId>{
-	@Query("select i from Locale i where i.localeId.codigoEmp = :codigo_emp and i.localeId.codigoFil = :codigo_fil and i.localeId.codigoG = :codigo_g")
+	@Query("select i from Locale i where i.id.codigoEmp = :codigo_emp and i.id.codigoFil = :codigo_fil and i.id.codigoG = :codigo_g")
 	public Optional<Locale> searchLocale(@Param("codigo_emp") String codigoEmp,
 			@Param("codigo_fil") String codigoFil, @Param("codigo_g") String codigoG);
 	/*
@@ -21,6 +21,6 @@ public interface LocaleRepository extends JpaRepository<Locale, LocaleId>{
 	 * Note que o símbolo "_"(underline) foi utilizado para representar que 
 	 * o campo buscado faz parte de uma chave estrangeira
 	 */
-	public List<LocaleProjection> findByGeneral_GeneralIdCodigoG(String codigoG); 
+	public List<LocaleProjection> findByCodigoG_IdCodigoGAndRequisicaoSN(String codigoG, String requisicao); 
 	
 }

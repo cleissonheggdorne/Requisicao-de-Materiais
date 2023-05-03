@@ -2,7 +2,9 @@ package br.com.requisicaodemateriais.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Optional;
 
+import br.com.requisicaodemateriais.services.SystemService;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,7 +12,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="gg_sistemas")
-public class System implements Serializable {
+public class GgSystem implements Serializable {
 
 	/**
 	 * 
@@ -23,14 +25,18 @@ public class System implements Serializable {
 	@Column(name="nome_sis")
 	private String nomeSis;
 	
-	public System() {
+	public GgSystem() {
 		
 	}
 
-	public System(String codigoSis, String nomeSis) {
+	public GgSystem(String codigoSis, String nomeSis) {
 		super();
 		this.codigoSis = codigoSis;
 		this.nomeSis = nomeSis;
+	}
+	
+	public static Optional<GgSystem> createSystem(String codigoSis, SystemService systemService){
+		return systemService.findSystem(codigoSis);
 	}
 
 	public String getCodigoSis() {
@@ -62,7 +68,7 @@ public class System implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		System other = (System) obj;
+		GgSystem other = (GgSystem) obj;
 		return Objects.equals(codigoSis, other.codigoSis) && Objects.equals(nomeSis, other.nomeSis);
 	}
 }

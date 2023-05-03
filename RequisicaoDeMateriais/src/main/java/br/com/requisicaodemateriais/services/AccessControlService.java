@@ -1,12 +1,10 @@
 package br.com.requisicaodemateriais.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.com.requisicaodemateriais.entities.AcessControl;
-import br.com.requisicaodemateriais.entities.projections.UserProjection;
+import br.com.requisicaodemateriais.entities.projections.AccessControlProjection;
 import br.com.requisicaodemateriais.repositories.AccessControlRepository;
 
 @Service
@@ -24,8 +22,9 @@ public class AccessControlService {
 //				user.getSystem().getCodigoSis(), user.getUserId().getCodigoUser());
 //	}
 	
-	public List<AcessControl> findByUser_UserIdCodigoUserAndAcessControlIdNomeMenu(String codigoUser){
-		return accessControlRepository.findByUser_UserIdCodigoUserAndAcessControlIdNomeMenu(codigoUser, "Requisição de Material");
+	public List<AccessControlProjection> findByUser_UserIdCodigoUserAndAcessControlIdNomeMenu(String codigoUser){
+		return accessControlRepository
+				.findByUser_UserIdCodigoUserAndAcessControlIdNomeMenuAndIncluir(codigoUser, "Requisição de Material", "S");
 	}
 
 }

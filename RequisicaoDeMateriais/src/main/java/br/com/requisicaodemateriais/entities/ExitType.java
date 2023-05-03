@@ -1,109 +1,67 @@
 package br.com.requisicaodemateriais.entities;
 
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.Optional;
 
 import br.com.requisicaodemateriais.entities.compositekeys.ExitTypeId;
+import br.com.requisicaodemateriais.services.BranchService;
+import br.com.requisicaodemateriais.services.ExitTypeService;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "pt_tp_baixa")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 public class ExitType implements Serializable{
 
 		private static final long serialVersionUID = 1L;
 		
 		@EmbeddedId
-		private ExitTypeId exitTypeID;
+		private ExitTypeId id;
 		
-		@ManyToOne
-		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
-		private Company company;
+		@MapsId("codigo_emp")
+		@ManyToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp")
+		private Company codigoEmp;
 		
-		@ManyToOne
+		//@MapsId("codigo_fil")
+		@ManyToOne(fetch = FetchType.LAZY)
 		@JoinColumns({
-			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
+			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false),
 			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false)
 		})
-		private Branch branch;
+		private Branch codigoFil;
+		
+		@Column(name="codigo_tp_baixa", insertable=false, updatable=false)
+		private String codigoBaixa;
 		
 		@ManyToOne
-		@JoinColumn(name="codigo_sis", referencedColumnName = "codigo_sis", insertable=false, updatable=false)
-		private System system;
+		@JoinColumn(name="codigo_sis", referencedColumnName = "codigo_sis")
+		private GgSystem system;
 		
 		@Column(name="nome_tp_baixa")
 		private String nomeBaixa;
 		@Column(name="ativo_inativo")
 		private String ativoInativo;
-		public ExitType() {
-			
-		}
-		public ExitType(ExitTypeId exitTypeID, Company company, Branch branch, System system, String nomeBaixa,
-				String ativoInativo) {
-			super();
-			this.exitTypeID = exitTypeID;
-			this.company = company;
-			this.branch = branch;
-			this.system = system;
-			this.nomeBaixa = nomeBaixa;
-			this.ativoInativo = ativoInativo;
-		}
-		public ExitTypeId getExitTypeID() {
-			return exitTypeID;
-		}
-		public void setExitTypeID(ExitTypeId exitTypeID) {
-			this.exitTypeID = exitTypeID;
-		}
-		public Company getCompany() {
-			return company;
-		}
-		public void setCompany(Company company) {
-			this.company = company;
-		}
-		public Branch getBranch() {
-			return branch;
-		}
-		public void setBranch(Branch branch) {
-			this.branch = branch;
-		}
-		public System getSystem() {
-			return system;
-		}
-		public void setSystem(System system) {
-			this.system = system;
-		}
-		public String getNomeBaixa() {
-			return nomeBaixa;
-		}
-		public void setNomeBaixa(String nomeBaixa) {
-			this.nomeBaixa = nomeBaixa;
-		}
-		public String getAtivoInativo() {
-			return ativoInativo;
-		}
-		public void setAtivoInativo(String ativoInativo) {
-			this.ativoInativo = ativoInativo;
-		}
-		@Override
-		public int hashCode() {
-			return Objects.hash(branch, company, exitTypeID, system);
-		}
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			ExitType other = (ExitType) obj;
-			return Objects.equals(branch, other.branch) && Objects.equals(company, other.company)
-					&& Objects.equals(exitTypeID, other.exitTypeID) && Objects.equals(system, other.system);
-		}
 		
+		public static Optional<ExitType> createExitType(String codigoBaixa, ExitTypeService exitTypeService){
+			return exitTypeService.findExitType(codigoBaixa);
+		}
+	
 }

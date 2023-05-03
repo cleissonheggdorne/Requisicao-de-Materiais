@@ -2,197 +2,124 @@ package br.com.requisicaodemateriais.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 import br.com.requisicaodemateriais.entities.compositekeys.ExitNoteId;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 @Entity
 @Table(name = "al_notasaida")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 public class ExitNote implements Serializable{
 
 		private static final long serialVersionUID = 1L;
+
 		@EmbeddedId
-		private ExitNoteId exitNoteId;
+		private ExitNoteId id;
 		
-		@ManyToOne
-		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable=false)
-		private Company company;
+//		@ManyToOne(fetch = FetchType.LAZY)
+//		@JoinColumns({
+//			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable = false),
+//		    @JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable = false),
+//			@JoinColumn(name="codigo_almox", referencedColumnName = "codigo_almox", insertable=false, updatable = false)
+//		})
+//		private Warehouse warehouse;
 		
-		@ManyToOne
+		@Column(name="codigo_almox", length = 3)
+		private String codigoAlmox;
+		
+//		@ManyToOne(fetch = FetchType.LAZY)
+//		@JoinColumns({
+//			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable=false, updatable = false),
+//			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable = false),
+//			@JoinColumn(name="codigo_ficha", referencedColumnName = "codigo_ficha", insertable=false, updatable = false)
+//		})
+//		private Allocation allocation;
+		
+		@Column(name="codigo_ficha", length = 5)
+		private String codigoFicha;
+		
+//		@ManyToOne(fetch = FetchType.LAZY)
+//		@JoinColumns({
+//			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable = false, updatable = false),
+//			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable = false, updatable = false),
+//			@JoinColumn(name="codigo_tp_baixa", referencedColumnName = "codigo_tp_baixa", insertable = false, updatable = false)
+//		})
+//		private ExitType exitType;
+		
+		@Column(name="codigo_tp_baixa", length = 3)
+		private String codigoBaixa;
+		
+		@ManyToOne(fetch = FetchType.LAZY)
 		@JoinColumns({
-			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
-			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false)
+			@JoinColumn(name="codigo_sis_info", referencedColumnName = "codigo_sis"),
+			@JoinColumn(name="codigo_user_info", referencedColumnName = "codigo_user")
 		})
-		private Branch branch;
+		private User userInfo;
 		
-		@ManyToOne
-		@JoinColumns({
-			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
-			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false),
-			@JoinColumn(name="codigo_ficha", referencedColumnName = "codigo_ficha",insertable=false, updatable=false)
-		})
-		private Allocation allocation;
+//		@ManyToOne(fetch = FetchType.LAZY)
+//		@JoinColumn(name="codigo_sis_info", referencedColumnName = "codigo_sis")
+//		private GgSystem systemInfo;
 		
-		@ManyToOne
-		@JoinColumns({
-			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
-			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false),
-			@JoinColumn(name="codigo_tp_baixa", referencedColumnName = "codigo_tp_baixa",insertable=false, updatable=false)
-		})
-		private ExitType exitType;
+//		@ManyToOne(fetch = FetchType.LAZY)
+//		@JoinColumns({
+//			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable = false, updatable = false),
+//			@JoinColumn(name="codigo_local", referencedColumnName = "codigo_local", insertable = false, updatable = false)
+//		})		
+//		private LocaleName localeName;
 		
-		@ManyToOne
-		@JoinColumns({
-			@JoinColumn(name="codigo_sis", referencedColumnName = "codigo_sis",insertable=false, updatable=false),
-			@JoinColumn(name="codigo_user", referencedColumnName = "codigo_user", insertable=false, updatable=false)
-		})
-		private User user;
-		
-		@ManyToOne
-		@JoinColumns({
-			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
-			@JoinColumn(name="codigo_local", referencedColumnName = "codigo_local", insertable=false, updatable=false)
-		})		
-		private LocaleName localeName;
-		
-		@ManyToOne
-		@JoinColumns({
-			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp",insertable=false, updatable=false),
-			@JoinColumn(name="codigo_fil", referencedColumnName = "codigo_fil", insertable=false, updatable=false),
-			@JoinColumn(name="codigo_almox", referencedColumnName = "codigo_almox", insertable=false, updatable=false)
-		})
-		private Warehouse warehouse;
+		@Column(name="codigo_local", length = 7)
+		private String codigoLocal;
 		
 		
+//		@ManyToOne(fetch = FetchType.LAZY)
+//		@JoinColumns({
+//			@JoinColumn(name="codigo_g_receptor", referencedColumnName = "codigo_g", insertable = false, updatable = false),
+//			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable = false, updatable = false),
+//		})
+//		private General generalReceptor;
+		
+		@Column(name="codigo_g_receptor", length = 7)
+		private String codigoGReceptor;
+	
+//		@ManyToOne(fetch = FetchType.LAZY)
+//		@JoinColumns({
+//			@JoinColumn(name="codigo_g_usuario", referencedColumnName = "codigo_g", insertable = false, updatable = false),
+//			@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable = false, updatable = false),
+//		})
+//		private General generalUser;
+		
+		@Column(name="codigo_g_usuario", length = 7)
+		private String codigoGUsuario;
+		
+		@NotNull
 		@Column(name="data_saida")
+		@Temporal(TemporalType.DATE)
 		private Date dataSaida;
 		@Column(name="destinacao")
 		private String justificativa;
-		
-		public ExitNote() {
-			
-		}
-
-		public ExitNote(ExitNoteId exitNoteId, Company company, Branch branch, Allocation allocation, ExitType exitType,
-				User user, LocaleName localeName, Warehouse warehouse, Date dataSaida, String justificativa) {
-			super();
-			this.exitNoteId = exitNoteId;
-			this.company = company;
-			this.branch = branch;
-			this.allocation = allocation;
-			this.exitType = exitType;
-			this.user = user;
-			this.localeName = localeName;
-			this.warehouse = warehouse;
-			this.dataSaida = dataSaida;
-			this.justificativa = justificativa;
-		}
-
-		public ExitNoteId getExitNoteId() {
-			return exitNoteId;
-		}
-
-		public void setExitNoteId(ExitNoteId exitNoteId) {
-			this.exitNoteId = exitNoteId;
-		}
-
-		public Company getCompany() {
-			return company;
-		}
-
-		public void setCompany(Company company) {
-			this.company = company;
-		}
-
-		public Branch getBranch() {
-			return branch;
-		}
-
-		public void setBranch(Branch branch) {
-			this.branch = branch;
-		}
-
-		public Allocation getAllocation() {
-			return allocation;
-		}
-
-		public void setAllocation(Allocation allocation) {
-			this.allocation = allocation;
-		}
-
-		public ExitType getExitType() {
-			return exitType;
-		}
-
-		public void setExitType(ExitType exitType) {
-			this.exitType = exitType;
-		}
-
-		public User getUser() {
-			return user;
-		}
-
-		public void setUser(User user) {
-			this.user = user;
-		}
-
-		public LocaleName getLocaleName() {
-			return localeName;
-		}
-
-		public void setLocaleName(LocaleName localeName) {
-			this.localeName = localeName;
-		}
-
-		public Warehouse getWarehouse() {
-			return warehouse;
-		}
-
-		public void setWarehouse(Warehouse warehouse) {
-			this.warehouse = warehouse;
-		}
-
-		public Date getDataSaida() {
-			return dataSaida;
-		}
-
-		public void setDataSaida(Date dataSaida) {
-			this.dataSaida = dataSaida;
-		}
-
-		public String getJustificativa() {
-			return justificativa;
-		}
-
-		public void setJustificativa(String justificativa) {
-			this.justificativa = justificativa;
-		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(allocation, branch, company, exitNoteId, exitType, localeName, user, warehouse);
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			ExitNote other = (ExitNote) obj;
-			return Objects.equals(allocation, other.allocation) && Objects.equals(branch, other.branch)
-					&& Objects.equals(company, other.company) && Objects.equals(exitNoteId, other.exitNoteId)
-					&& Objects.equals(exitType, other.exitType) && Objects.equals(localeName, other.localeName)
-					&& Objects.equals(user, other.user) && Objects.equals(warehouse, other.warehouse);
-		}
+		@NotNull
+		@Column(name="hora_saida", length = 6)
+		private String horaSaida;
 		
 }
