@@ -50,8 +50,8 @@ public class ExitNote implements Serializable{
 		
 		@ManyToOne
 		@JoinColumns({
-			@JoinColumn(name="codigo_sis", referencedColumnName = "codigo_sis",insertable=false, updatable=false),
-			@JoinColumn(name="codigo_user", referencedColumnName = "codigo_user", insertable=false, updatable=false)
+			@JoinColumn(name="codigo_sis_info", referencedColumnName = "codigo_sis",insertable=false, updatable=false),
+			@JoinColumn(name="codigo_user_info", referencedColumnName = "codigo_user", insertable=false, updatable=false)
 		})
 		private User user;
 		

@@ -29,5 +29,5 @@ public class LocaleService {
 	public List<LocaleProjection> findByGeneral_GeneralIdCodigoG(String codigoG){
 		return localRepository.findByGeneral_GeneralIdCodigoG(codigoG);
 	}
-	
+	 
 }
