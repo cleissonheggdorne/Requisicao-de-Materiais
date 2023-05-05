@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Embeddable
-public class LocaleNameId implements Serializable{
+public class LocationId implements Serializable{
 	/**
 	 * 
 	 */

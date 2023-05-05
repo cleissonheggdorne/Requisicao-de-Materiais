@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -11,12 +12,9 @@ import org.springframework.stereotype.Service;
 import br.com.requisicaodemateriais.dtos.ExitNoteDTO;
 import br.com.requisicaodemateriais.entities.Branch;
 import br.com.requisicaodemateriais.entities.ExitNote;
-import br.com.requisicaodemateriais.entities.ExitType;
-import br.com.requisicaodemateriais.entities.General;
-import br.com.requisicaodemateriais.entities.LocaleName;
 import br.com.requisicaodemateriais.entities.User;
-import br.com.requisicaodemateriais.entities.Warehouse;
 import br.com.requisicaodemateriais.entities.compositekeys.ExitNoteId;
+import br.com.requisicaodemateriais.entities.projections.ExitNoteProjection;
 import br.com.requisicaodemateriais.repositories.ExitNoteRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
@@ -131,5 +129,10 @@ public class ExitNoteService implements Serializable{
       }finally {
     	  entityManager.close();
 	  }
+	}
+	
+	public List<ExitNoteProjection> findByUserInfo(String codigoUser) {
+		Optional<User> user = User.createUser(codigoUser, userService);
+		return exitNoteRepository.findByUserInfo(user.get());
 	}
 }

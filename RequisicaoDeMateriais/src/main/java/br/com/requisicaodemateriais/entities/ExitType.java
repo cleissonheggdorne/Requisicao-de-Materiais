@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Optional;
 
 import br.com.requisicaodemateriais.entities.compositekeys.ExitTypeId;
-import br.com.requisicaodemateriais.services.BranchService;
 import br.com.requisicaodemateriais.services.ExitTypeService;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;

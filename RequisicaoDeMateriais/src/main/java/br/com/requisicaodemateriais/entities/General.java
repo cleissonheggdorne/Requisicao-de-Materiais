@@ -46,7 +46,7 @@ public class General implements Serializable{
 	@Column(name="codigo_g", insertable = false, updatable = false)
 	private String codigoG;
 	@Column(name="nome_g")
-	private String nameG;
+	private String nomeG;
 	@Column(name="email_g")
 	private String emailG;
 	@Column(name="cpf_g")
@@ -55,7 +55,7 @@ public class General implements Serializable{
 	private String ativoInativo;
 	@JsonIgnore
 	@OneToMany(mappedBy = "codigoG")
-    private List<Locale> locales;
+    private List<LocationIdentity> locales;
 
 	public static Optional<General> createGeneral(String codigoG, GeneralService generalService){
 		return generalService.findGeneral(codigoG);

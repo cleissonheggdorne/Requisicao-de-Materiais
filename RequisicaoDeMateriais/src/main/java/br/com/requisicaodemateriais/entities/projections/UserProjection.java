@@ -10,6 +10,6 @@ public interface UserProjection {
 	String getUserName();
 	String getIdCodigoUser(); 
 	String getPessoaIdCodigoG();
-	String getPessoaNameG();
+	String getPessoaNomeG();
 	
 }

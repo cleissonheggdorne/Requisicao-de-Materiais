@@ -2,7 +2,7 @@ package br.com.requisicaodemateriais.entities;
 
 import java.io.Serializable;
 
-import br.com.requisicaodemateriais.entities.compositekeys.AllocationId;
+import br.com.requisicaodemateriais.entities.compositekeys.SheetId;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -25,12 +25,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Allocation implements Serializable{
+public class Sheet implements Serializable{
 
 		private static final long serialVersionUID = 1L;
 		
 		@EmbeddedId
-		private AllocationId Id;
+		private SheetId Id;
 		
 		@MapsId("codigoEmp")
 		@ManyToOne(fetch = FetchType.LAZY)

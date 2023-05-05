@@ -15,7 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Embeddable //Indica que a classe pode ser incorporada em outra
-public class LocaleId implements Serializable {
+public class LocationIdentityId implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

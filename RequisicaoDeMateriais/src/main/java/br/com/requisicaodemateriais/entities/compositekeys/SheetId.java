@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Embeddable
-public class AllocationId implements Serializable {
+public class SheetId implements Serializable {
 	/**
 	 * 
 	 */

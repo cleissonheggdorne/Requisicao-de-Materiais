@@ -3,7 +3,7 @@ package br.com.requisicaodemateriais.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import br.com.requisicaodemateriais.entities.compositekeys.LocaleId;
+import br.com.requisicaodemateriais.entities.compositekeys.LocationIdentityId;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -26,12 +26,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Locale implements Serializable{
+public class LocationIdentity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId //Indica que o objeto abaixo está sendo incorporado como o Id da classe (chave primária da tabela)
-	private LocaleId id;
+	private LocationIdentityId id;
 	
 	@MapsId("codigoEmp")
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -52,9 +52,8 @@ public class Locale implements Serializable{
 		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable = false, updatable = false),
 		@JoinColumn(name="codigo_local", referencedColumnName = "codigo_local", insertable = false, updatable = false) 
 	})
-	private LocaleName codigoLocal;
+	private Location codigoLocal;
 	
-   // @MapsId("codigoG")
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
 		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp", insertable = false, updatable = false),

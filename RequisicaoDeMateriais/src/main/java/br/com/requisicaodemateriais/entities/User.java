@@ -1,7 +1,6 @@
 package br.com.requisicaodemateriais.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Optional;
 
 import br.com.requisicaodemateriais.entities.compositekeys.UserId;
@@ -14,7 +13,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;

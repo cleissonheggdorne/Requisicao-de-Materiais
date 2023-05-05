@@ -24,7 +24,7 @@ public class AccessControlService {
 	
 	public List<AccessControlProjection> findByUser_UserIdCodigoUserAndAcessControlIdNomeMenu(String codigoUser){
 		return accessControlRepository
-				.findByUser_UserIdCodigoUserAndAcessControlIdNomeMenuAndIncluir(codigoUser, "Requisição de Material", "S");
+				.findById_CodigoUserIdCodigoUserAndIdNomeMenuAndIncluir(codigoUser, "Requisição de Material", "S");
 	}
 
 }

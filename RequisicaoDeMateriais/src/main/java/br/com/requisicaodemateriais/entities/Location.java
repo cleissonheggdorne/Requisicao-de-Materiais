@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-import br.com.requisicaodemateriais.entities.compositekeys.LocaleNameId;
+import br.com.requisicaodemateriais.entities.compositekeys.LocationId;
 import br.com.requisicaodemateriais.services.LocaleNameService;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -28,20 +28,17 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class LocaleName implements Serializable{
+public class Location implements Serializable{
 
 		private static final long serialVersionUID = 1L;
 		
 		@EmbeddedId
-		private LocaleNameId localeNameId;
+		private LocationId localeNameId;
 		
 		@MapsId("codigoEmp")
 		@OneToOne(fetch = FetchType.LAZY)
 		@JoinColumn(name="codigo_emp", referencedColumnName = "codigo_emp")
 		private Company codigoEmp;
-		
-//		@Column(name="codigo_local")
-//		private String codigoLocal;
 		
 		@Column(name="nome_local")
 		private String nomeLocal;
@@ -49,9 +46,9 @@ public class LocaleName implements Serializable{
 		private char ativoInativo;
 		
 		@OneToMany(mappedBy = "codigoLocal")
-	    private List<Locale> locales;
+	    private List<LocationIdentity> locales;
 		
-		public static Optional<LocaleName> createLocaleName(String codigoLocal, LocaleNameService localeNameService){
+		public static Optional<Location> createLocaleName(String codigoLocal, LocaleNameService localeNameService){
 			return localeNameService.findLocaleName(codigoLocal);
 		}
 
