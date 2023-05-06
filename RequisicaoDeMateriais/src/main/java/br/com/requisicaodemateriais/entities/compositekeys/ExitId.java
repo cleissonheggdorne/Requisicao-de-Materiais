@@ -5,6 +5,7 @@ import java.io.Serializable;
 import br.com.requisicaodemateriais.entities.ExitNote;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinColumns;
@@ -27,14 +28,8 @@ public class ExitId implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(name="codigo_emp"),
-		@JoinColumn(name="codigo_fil"),
-		@JoinColumn(name="ano"),
-		@JoinColumn(name="num_ped_saida"),
-	})
-	private ExitNote numeroSaida;
+	@Embedded
+	private ExitNoteId exitNoteId; 
 	@Column(name="codigo_prod")
 	private String codigoProd;
 	@Column(name="codigo_lote")

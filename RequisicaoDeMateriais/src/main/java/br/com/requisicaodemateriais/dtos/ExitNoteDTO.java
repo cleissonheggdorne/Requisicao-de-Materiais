@@ -13,27 +13,21 @@ public class ExitNoteDTO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	//codigo_almox
 	@NotBlank
 	@Size(max=3)
 	String codigoAlmox;
-	//codigo_ficha
 	@NotBlank
 	@Size(max=5)
 	String codigoFicha;
-	//codigo_local
 	@NotBlank
 	@Size(max=8)
 	String codigoLocal;
-	//destinacao
 	@NotBlank
 	@Size(max=255)
     String justificativa;
-    //codigo_tp_baixa
 	@NotBlank
 	@Size(max=3)
     String codigoBaixa;
-    //codigo_user
 	@NotBlank
 	@Size(max=3)
 	String userInfo;

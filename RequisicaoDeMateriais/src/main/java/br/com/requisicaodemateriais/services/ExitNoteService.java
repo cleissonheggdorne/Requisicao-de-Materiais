@@ -13,6 +13,7 @@ import br.com.requisicaodemateriais.dtos.ExitNoteDTO;
 import br.com.requisicaodemateriais.entities.Branch;
 import br.com.requisicaodemateriais.entities.ExitNote;
 import br.com.requisicaodemateriais.entities.User;
+import br.com.requisicaodemateriais.entities.compositekeys.BranchId;
 import br.com.requisicaodemateriais.entities.compositekeys.ExitNoteId;
 import br.com.requisicaodemateriais.entities.projections.ExitNoteProjection;
 import br.com.requisicaodemateriais.repositories.ExitNoteRepository;
@@ -64,9 +65,9 @@ public class ExitNoteService implements Serializable{
 		
 		ExitNote exitNote = new ExitNote();
 		
-		Optional<Branch> branch = Branch.createBranch("001", branchService);
+	//	Optional<Branch> branch = Branch.createBranch("001", branchService);
 		
-		ExitNoteId exitNoteId = new ExitNoteId(branch.get(), Integer.toString(LocalDate.now().getYear()), String.format("%09d",numeroSaida));
+		ExitNoteId exitNoteId = new ExitNoteId(new BranchId("001", "001"), Integer.toString(LocalDate.now().getYear()), String.format("%09d",numeroSaida));
 		
 		exitNote.setId(exitNoteId);
 		

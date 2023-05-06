@@ -1,9 +1,12 @@
 package br.com.requisicaodemateriais.entities.projections;
 
-import org.springframework.beans.factory.annotation.Value;
+import br.com.requisicaodemateriais.entities.compositekeys.ExitNoteId;
 
 public interface ExitNoteProjection {
-	String getIdNumeroSaida();
+//	String getIdCodigoFilIdCodigoEmp();
+//	String getIdCodigoFilIdCodigoFil();
+//	String getIdNumeroSaida();
+	ExitNoteId getId();
 	String getWarehouseNomeAlmox();
 	String getSheetNomeFicha();
 	String getLocationNomeLocal();

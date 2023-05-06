@@ -2,13 +2,9 @@ package br.com.requisicaodemateriais.entities.compositekeys;
 
 import java.io.Serializable;
 
-import br.com.requisicaodemateriais.entities.Branch;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinColumns;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Embedded;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,14 +22,8 @@ public class ExitNoteId implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	//@Column(name="codigo_emp")
-	//private String codigoEmp;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(name="codigo_emp"),
-		@JoinColumn(name="codigo_fil")
-	})
-	private Branch codigoFil;
+	@Embedded
+	private BranchId branchId;
 	@Column(name="ano")
 	private String ano;
 	@Column(name="num_ped_saida")
