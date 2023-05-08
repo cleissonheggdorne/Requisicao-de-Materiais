@@ -7,7 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import jakarta.validation.constraints.NotEmpty;
 
 @Validated
-public class UserDto implements Serializable {
+public class UserDTO implements Serializable {
 	
 	/**
 	 * 

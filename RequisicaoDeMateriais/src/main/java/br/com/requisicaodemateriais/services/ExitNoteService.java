@@ -9,8 +9,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import br.com.requisicaodemateriais.dtos.ExitDTO;
 import br.com.requisicaodemateriais.dtos.ExitNoteDTO;
-import br.com.requisicaodemateriais.entities.Branch;
 import br.com.requisicaodemateriais.entities.ExitNote;
 import br.com.requisicaodemateriais.entities.User;
 import br.com.requisicaodemateriais.entities.compositekeys.BranchId;
@@ -21,6 +21,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.StoredProcedureQuery;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ExitNoteService implements Serializable{
@@ -42,12 +43,13 @@ public class ExitNoteService implements Serializable{
 	final WarehouseService warehouseService;
 	final GeneralService generalService;
 	final BranchService branchService;
+	final ExitService exitService;
 	
 	
 	public ExitNoteService(ExitNoteRepository exitNoteRepository, AllocationService allocationService,
 			ExitTypeService exitTypeService, UserService userService, SystemService systemService,
 			LocaleNameService localeNameService, WarehouseService warehouseService, GeneralService generalService,
-			BranchService branchService) {
+			BranchService branchService, ExitService exitService) {
 		this.exitNoteRepository = exitNoteRepository;
 		this.allocationService = allocationService;
 		this.exitTypeService = exitTypeService;
@@ -57,16 +59,15 @@ public class ExitNoteService implements Serializable{
 		this.warehouseService = warehouseService;
 		this.generalService = generalService;
 		this.branchService = branchService;
+		this.exitService = exitService;
 	}
 	
-	public ExitNote save(ExitNoteDTO exitNoteDto) throws ClassServiceException {
+	@Transactional
+	public ExitNoteId save(ExitNoteDTO exitNoteDto) throws ClassServiceException {
 		Integer numeroSaida = obterNumeroSaida("001", "001", Integer.toString(LocalDate.now().getYear()));
-		//Instância Chave Estrangeira ExitNote
 		
 		ExitNote exitNote = new ExitNote();
-		
-	//	Optional<Branch> branch = Branch.createBranch("001", branchService);
-		
+				
 		ExitNoteId exitNoteId = new ExitNoteId(new BranchId("001", "001"), Integer.toString(LocalDate.now().getYear()), String.format("%09d",numeroSaida));
 		
 		exitNote.setId(exitNoteId);
@@ -93,7 +94,10 @@ public class ExitNoteService implements Serializable{
 				Integer.toString(LocalDateTime.now().getSecond()));
 		
 		exitNote.setJustificativa(exitNoteDto.getJustificativa());
-		return exitNoteRepository.saveAndFlush(exitNote);
+		exitNoteRepository.saveAndFlush(exitNote);
+		exitService.save(exitNoteDto.getListExit(), exitNoteId);
+		return exitNoteId;
+		
 	}
 	
 	public Integer obterNumeroSaida(String codigoEmp, String codigoFil, String ano) {

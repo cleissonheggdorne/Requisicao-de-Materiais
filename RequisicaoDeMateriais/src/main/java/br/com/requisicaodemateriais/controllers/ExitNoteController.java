@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.requisicaodemateriais.dtos.ExitNoteDTO;
-import br.com.requisicaodemateriais.entities.ExitNote;
+import br.com.requisicaodemateriais.entities.compositekeys.ExitNoteId;
 import br.com.requisicaodemateriais.entities.projections.ExitNoteProjection;
 import br.com.requisicaodemateriais.services.ClassServiceException;
 import br.com.requisicaodemateriais.services.ExitNoteService;
@@ -43,11 +43,11 @@ public class ExitNoteController {
     }
 	
 	@PostMapping("/saveexitnote")
-    public ResponseEntity<?> salvarPessoa(@RequestBody @Valid ExitNoteDTO exitNoteDto, BindingResult br) throws ClassServiceException {
+    public ResponseEntity<?> save(@RequestBody @Valid ExitNoteDTO exitNoteDto, BindingResult br) throws ClassServiceException {
 		if(br.hasErrors()) {
 			return ResponseEntity.badRequest().body(br.getAllErrors());
 		}
-		ExitNote exitNoteSave = exitNoteService.save(exitNoteDto);
-        return ResponseEntity.ok(exitNoteSave);
+		ExitNoteId exitNoteIdSave = exitNoteService.save(exitNoteDto);
+        return ResponseEntity.ok(exitNoteIdSave);
     }
 }

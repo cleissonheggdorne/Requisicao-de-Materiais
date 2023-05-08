@@ -9,5 +9,6 @@ import br.com.requisicaodemateriais.entities.projections.BalanceProjection;
 import br.com.requisicaodemateriais.entities.views.VwBalance;
 
 public interface BalanceRepository extends JpaRepository<VwBalance, VwBalanceId> {
-	List<BalanceProjection> findByQtdGreaterThan(int saldo);
+	List<BalanceProjection> findByIdAnoAndQtdGreaterThan(String ano, int saldo);
+	VwBalance findByIdAnoAndCodigoProd(String ano, String codigoProd);
 }

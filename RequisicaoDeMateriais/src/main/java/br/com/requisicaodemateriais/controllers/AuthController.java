@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.requisicaodemateriais.dtos.UserDto;
+import br.com.requisicaodemateriais.dtos.UserDTO;
 import br.com.requisicaodemateriais.entities.User;
 import br.com.requisicaodemateriais.entities.projections.AccessControlProjection;
 import br.com.requisicaodemateriais.entities.projections.LocaleProjection;
@@ -63,13 +63,13 @@ public class AuthController {
 	
 	@GetMapping("/login")
     public String loginForm(Model model) {
-        model.addAttribute("user", new UserDto());
+        model.addAttribute("user", new UserDTO());
         return "login";
     }
 	
 	@Transactional
 	@PostMapping("/login")
-	public ResponseEntity<?>userAccess(@Valid UserDto userDto, BindingResult br, Model model) throws NoSuchAlgorithmException, ClassServiceException{
+	public ResponseEntity<?>userAccess(@Valid UserDTO userDto, BindingResult br, Model model) throws NoSuchAlgorithmException, ClassServiceException{
 		model.addAttribute("user", new User());
 				
 		//Verifica se dados foram digitados conforme validação userDto

@@ -1,6 +1,7 @@
 package br.com.requisicaodemateriais.entities.views;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import br.com.requisicaodemateriais.entities.compositekeys.VwBalanceId;
 import jakarta.persistence.Column;
@@ -36,7 +37,11 @@ public class VwBalance implements Serializable{
 		@Column(name="codigo_ender")
 		private String codigoEnder;
 		@Column(name="qtd")
-		private int qtd;
+		private BigDecimal qtd;
+		@Column(name="codigo_tpp")
+		private String codigoTpp;
+		@Column(name="vlr_unitario")
+		private BigDecimal valorUnitario;
 		
 	
 }

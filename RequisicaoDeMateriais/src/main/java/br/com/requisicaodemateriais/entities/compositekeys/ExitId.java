@@ -2,14 +2,9 @@ package br.com.requisicaodemateriais.entities.compositekeys;
 
 import java.io.Serializable;
 
-import br.com.requisicaodemateriais.entities.ExitNote;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinColumns;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

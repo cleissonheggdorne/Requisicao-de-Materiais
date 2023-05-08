@@ -1,23 +1,29 @@
 package br.com.requisicaodemateriais.dtos;
 
+import java.math.BigDecimal;
+
 import org.springframework.validation.annotation.Validated;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 @Validated
 public class ExitDTO {
 	
 	@NotEmpty
-	@Size(max=3)
-	String codigoEmp;
+	@Size(max = 7)
+	private String codigoProd;
 	@NotEmpty
-	@Size(max=3)
-	String codigoFil;
-	@NotEmpty
-	@Size(max=4)
-	String ano;
-	@NotEmpty
-	@Size(max=9)
-	String numeroSaida;
+	private BigDecimal qtdSolicitada;
+
 }

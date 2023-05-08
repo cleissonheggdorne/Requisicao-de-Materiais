@@ -26,7 +26,6 @@ public class BalanceController {
     public ResponseEntity<?> findNoteByUser() {
 				
 		List<BalanceProjection> balanceList = balanceService.findByQtdGreaterThan();
-
         return ResponseEntity.ok(balanceList);
     }
 	
